@@ -1,4 +1,4 @@
-import { Post } from "@/utils/posts.ts";
+import { Post } from "../utils/posts.ts";
 import PostSummary from "./PostSummary.tsx";
 
 export default function PostList(

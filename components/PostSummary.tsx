@@ -1,4 +1,4 @@
-import { Post } from "@/utils/posts.ts";
+import { Post } from "../utils/posts.ts";
 
 export default function PostSummary(
   props: { post: Post; showExcerpt: boolean },
@@ -49,13 +49,13 @@ function reduceAuthors(authors: string[]) {
 }
 
 function authorElement(author: string) {
-  const authorUrl = `author/${author.toLowerCase().replace(/\s+/g, "-")}`;
+  const authorUrl = `/author/${author.toLowerCase().replace(/\s+/g, "-")}`;
   return <a href={authorUrl}>{author}</a>;
 }
 
 function tags(tags: string[]) {
   return tags.map((tag) => {
-    const url = `archive/${tag}`;
+    const url = `/archive/${tag}`;
     return (
       <a
         href={url}

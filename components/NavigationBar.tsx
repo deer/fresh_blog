@@ -1,5 +1,5 @@
 export default function NavigationBar(
-  props: { active: string; class?: string },
+  props: { active: string; class?: string; blogTitle: string },
 ) {
   const items = [
     { name: "Archive", href: "/archive" },
@@ -10,7 +10,7 @@ export default function NavigationBar(
   const isHome = props.active == "/";
   return (
     <nav class={"flex " + props.class ?? ""}>
-      <div class="text-5xl font-bold pr-20">Reed's Blog</div>
+      <div class="text-5xl font-bold pr-20">{props.blogTitle}</div>
       <ul class="flex justify-center items-center gap-4 mx-4 my-6 flex-wrap">
         {items.map((item) => (
           <li>

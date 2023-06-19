@@ -1,6 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { getPost, Post } from "../../utils/posts.ts";
-import { CSS, render } from "$gfm";
+import { CSS, render } from "https://deno.land/x/gfm@0.2.3/mod.ts";
 import { Head } from "$fresh/runtime.ts";
 // import Disqus from "../../islands/Disqus.tsx";
 

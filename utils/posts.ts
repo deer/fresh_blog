@@ -47,6 +47,6 @@ export async function getPost(slug: string): Promise<Post | null> {
     description: parms.description,
     draft: parms.draft ? Boolean(JSON.parse(parms.draft)) : false,
     author: typeof parms.author === "object" ? parms.author : [parms.author],
-    tags: typeof parms.tags === "object" ? parms.tags : []
+    tags: typeof parms.tags === "object" ? parms.tags : [],
   };
 }
