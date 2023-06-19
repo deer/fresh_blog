@@ -8,6 +8,7 @@ export interface Post {
   title: string;
   date: Date;
   content: string;
+  excerpt: string;
   description: string;
   draft: boolean;
   author: string[];
@@ -39,6 +40,9 @@ export async function getPost(slug: string): Promise<Post | null> {
     title: parms.title,
     date: new Date(parms.date),
     content: body,
+    excerpt: (body as string).split(
+      /<!--\s*more\s*-->/i,
+    )[0],
     description: parms.description,
     draft: parms.draft ? Boolean(JSON.parse(parms.draft)) : false,
     author: typeof parms.author === "object" ? parms.author : [parms.author],

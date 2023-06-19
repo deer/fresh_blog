@@ -11,5 +11,5 @@ export const handler: Handlers<Post[]> = {
 };
 
 export default function BlogIndexPage(props: PageProps<Post[]>) {
-  return <PostList posts={props.data} />;
+  return <PostList posts={props.data} showExcerpt={true} />;
 }

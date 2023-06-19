@@ -13,15 +13,15 @@ export const handler: Handlers<Post[]> = {
   },
 };
 
-export default function BlogIndexPage(props: PageProps<Post[]>) {
-  return <PostList posts={props.data} />;
+export default function AuthorPage(props: PageProps<Post[]>) {
+  return <PostList posts={props.data} showExcerpt={false} />;
 }
 
 function hasMatchingAuthor(authors: string[], searchString: string): boolean {
   const formattedSearchString = searchString.replace(/-/g, " ").toLowerCase();
   return authors.some((author) => {
     const formattedAuthor = author.replace(/-/g, " ").toLowerCase();
-    console.log(formattedAuthor);
+    // console.log(formattedAuthor);
     return formattedAuthor === formattedSearchString;
   });
 }

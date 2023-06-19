@@ -1,9 +1,11 @@
 import { Post } from "@/utils/posts.ts";
 
-export default function PostSummary(props: { post: Post }) {
-  const { post } = props;
+export default function PostSummary(
+  props: { post: Post; showExcerpt: boolean },
+) {
+  const { post, showExcerpt } = props;
   return (
-    <div class="py-8 border(t gray-200)">
+    <div class="py-4 border(t gray-200)">
       <a class="sm:col-span-2" href={`/blog/${post.slug}`}>
         <h3 class="text(3xl gray-900) font-bold">
           {post.title}
@@ -20,13 +22,14 @@ export default function PostSummary(props: { post: Post }) {
           })}
         </time>
       </div>
-
-      <div class="mt-4 text-gray-900">
-        {post.description}
-      </div>
-      <div class="mt-4 text-gray-900">
-        {post.draft}
-      </div>
+      {showExcerpt && (
+        <div>
+          <div>{post.excerpt}</div>
+          <a class="sm:col-span-2" href={`/blog/${post.slug}`}>
+            Continue reading →
+          </a>
+        </div>
+      )}
     </div>
   );
 }
