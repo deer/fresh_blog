@@ -2,7 +2,7 @@ export default function NavigationBar(
   props: { active: string; class?: string },
 ) {
   const items = [
-    { name: "Home", href: "/" },
+    { name: "Archive", href: "/archive" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
     { name: "Projects", href: "/projects" },

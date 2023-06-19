@@ -5,9 +5,11 @@ export default function PostList(
   props: { posts: Post[]; showExcerpt: boolean },
 ) {
   return (
-    <main class="max-w-screen-md px-4 pt-16 mx-auto">
+    <main class="max-w-screen-md px-4 mx-auto">
       <div class="mt-8">
-        {props.posts.map((post) => <PostSummary post={post} showExcerpt={props.showExcerpt} />)}
+        {props.posts.map((post) => (
+          <PostSummary post={post} showExcerpt={props.showExcerpt} />
+        ))}
       </div>
     </main>
   );

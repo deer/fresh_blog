@@ -12,6 +12,7 @@ export interface Post {
   description: string;
   draft: boolean;
   author: string[];
+  tags: string[];
 }
 
 // Get posts.
@@ -46,5 +47,6 @@ export async function getPost(slug: string): Promise<Post | null> {
     description: parms.description,
     draft: parms.draft ? Boolean(JSON.parse(parms.draft)) : false,
     author: typeof parms.author === "object" ? parms.author : [parms.author],
+    tags: typeof parms.tags === "object" ? parms.tags : []
   };
 }
