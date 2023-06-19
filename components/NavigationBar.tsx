@@ -1,28 +1,22 @@
+import { Options } from "../plugin/blog.ts";
+
 export default function NavigationBar(
-  props: { active: string; class?: string; blogTitle: string },
+  props: { active: string; class?: string; options: Options },
 ) {
-  const items = [
-    { name: "Archive", href: "/archive" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
-    { name: "Projects", href: "/projects" },
-  ];
   const isHome = props.active == "/";
   return (
     <nav class={"flex " + props.class ?? ""}>
-      <div class="text-5xl font-bold pr-20">{props.blogTitle}</div>
+      <div class="text-5xl font-bold pr-20">{props.options.title}</div>
       <ul class="flex justify-center items-center gap-4 mx-4 my-6 flex-wrap">
-        {items.map((item) => (
-          <li>
+        {Object.entries(props.options.navbarItems).map(([key, value]) => (
+          <li key={key}>
             <a
-              href={item.href}
+              href={value}
               class={`p-2 ${
                 isHome ? "text-black-900" : "text-black-600"
-              } hover:underline ${
-                props.active == item.href ? "font-bold" : ""
-              }`}
+              } hover:underline ${props.active == value ? "font-bold" : ""}`}
             >
-              {item.name}
+              {key}
             </a>
           </li>
         ))}

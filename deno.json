@@ -5,7 +5,7 @@
     "update": "deno run -A -r https://fresh.deno.dev/update ."
   },
   "imports": {
-    "$fresh/": "https://deno.land/x/fresh@1.2.0/",
+    "$fresh/": "file:///Users/reed/code/fresh/",
     "preact": "https://esm.sh/preact@10.15.1",
     "preact/": "https://esm.sh/preact@10.15.1/",
     "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.1.0",
@@ -14,7 +14,7 @@
     "$std/": "https://deno.land/std@0.191.0/",
     "twind": "https://esm.sh/twind@0.16.19",
     "twind/": "https://esm.sh/twind@0.16.19/",
-    "$gfm": "https://deno.land/x/gfm@0.2.3/mod.ts",
+    "gfm/": "https://deno.land/x/gfm@0.2.3/",
     "@/": "./",
     "./": "./"
   },

@@ -9,7 +9,7 @@ export default function App(props: AppProps) {
     <>
       <main class="max-w-screen-md px-4 pt-16 mx-auto">
         <Header
-          title={options.title}
+          options={options}
           active={route}
         />
         <Component />

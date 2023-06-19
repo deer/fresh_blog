@@ -14,6 +14,7 @@ export type { Options };
 
 interface Options {
   title: string;
+  navbarItems: Record<string, string>;
 }
 
 export default function blog(options: Options): Plugin {
