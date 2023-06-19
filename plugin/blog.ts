@@ -1,7 +1,7 @@
 import { Plugin } from "$fresh/server.ts";
 import { handler as blogSlugHandler } from "../routes/blog/[slug].tsx";
 import PostPage from "../routes/blog/[slug].tsx";
-import App from "../routes/_app.tsx";
+import { AppBuilder } from "../routes/_app.tsx";
 import BlogIndexPage from "../routes/index.tsx";
 import { handler as indexHandler } from "../routes/index.tsx";
 import AuthorPage from "../routes/author/[author].tsx";
@@ -21,14 +21,13 @@ export default function blog(options: Options): Plugin {
   console.log(options);
   return {
     name: "blog_plugin",
-    options: options,
     routes: [{
       path: "/blog/[slug]",
       component: PostPage,
       handler: blogSlugHandler,
     }, {
       path: "/_app",
-      component: App,
+      component: AppBuilder(options),
     }, {
       path: "/index",
       component: BlogIndexPage,
