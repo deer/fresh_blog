@@ -1,7 +1,7 @@
 {
   "lock": false,
   "tasks": {
-    "start": "deno run -A --watch=static/,routes/ dev.ts",
+    "start": "deno run -A --watch=static/,routes/,posts/ dev.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update ."
   },
   "imports": {
@@ -14,7 +14,9 @@
     "$std/": "https://deno.land/std@0.191.0/",
     "twind": "https://esm.sh/twind@0.16.19",
     "twind/": "https://esm.sh/twind@0.16.19/",
-    "$gfm": "https://deno.land/x/gfm@0.2.3/mod.ts"
+    "$gfm": "https://deno.land/x/gfm@0.2.3/mod.ts",
+    "@/": "./",
+    "./": "./"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

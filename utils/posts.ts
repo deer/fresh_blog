@@ -10,6 +10,7 @@ export interface Post {
   content: string;
   description: string;
   draft: boolean;
+  author: string[];
 }
 
 // Get posts.
@@ -31,12 +32,15 @@ export async function getPost(slug: string): Promise<Post | null> {
   const text = await Deno.readTextFile(join(DIRECTORY, `${slug}.md`));
   const { attrs, body } = extract(text);
   const parms = attrs as Record<string, string>;
+  // console.log(parms);
+  // console.log(typeof parms.author);
   return {
     slug,
     title: parms.title,
     date: new Date(parms.date),
     content: body,
     description: parms.description,
-    draft: parms.draft,
+    draft: parms.draft ? Boolean(JSON.parse(parms.draft)) : false,
+    author: typeof parms.author === "object" ? parms.author : [parms.author],
   };
 }
