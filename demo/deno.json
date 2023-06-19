@@ -5,8 +5,7 @@
     "update": "deno run -A -r https://fresh.deno.dev/update ."
   },
   "imports": {
-    "blog/": "file:///Users/reed/code/fresh-blog/plugin/",
-    "$fresh/": "file:///Users/reed/code/fresh/",
+    "$fresh/": "https://raw.githubusercontent.com/deer/fresh/plugin_route_middleware/",
     "preact": "https://esm.sh/preact@10.15.1",
     "preact/": "https://esm.sh/preact@10.15.1/",
     "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.1.0",

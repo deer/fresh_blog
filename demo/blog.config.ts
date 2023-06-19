@@ -1,9 +1,9 @@
 import { Options } from "../plugin/blog.ts";
 
 export default {
-  title: "Reed's Blog",
+  title: "Demo Blog",
   navbarItems: {
     Home: "/",
-    Archive: "/archive"
-  }
+    Archive: "/archive",
+  },
 } as Options;
