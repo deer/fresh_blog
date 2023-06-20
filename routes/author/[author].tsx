@@ -21,7 +21,6 @@ function hasMatchingAuthor(authors: string[], searchString: string): boolean {
   const formattedSearchString = searchString.replace(/-/g, " ").toLowerCase();
   return authors.some((author) => {
     const formattedAuthor = author.replace(/-/g, " ").toLowerCase();
-    // console.log(formattedAuthor);
     return formattedAuthor === formattedSearchString;
   });
 }

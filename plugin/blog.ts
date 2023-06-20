@@ -18,7 +18,6 @@ interface Options {
 }
 
 export default function blog(options: Options): Plugin {
-  console.log(options);
   return {
     name: "blog_plugin",
     routes: [{
