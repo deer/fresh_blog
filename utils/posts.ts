@@ -17,14 +17,7 @@ export interface Post {
 
 // Get posts.
 export async function getPosts(): Promise<Post[]> {
-  const HACK = Deno.env.get("RELATIVE_LOCATION");
-  // this is needed for testing. i'm sure there is a better way, but this at least allows me to move forward
-  let files;
-  if (HACK) {
-    files = await Deno.readDir(HACK);
-  } else {
-    files = await Deno.readDir(DIRECTORY);
-  }
+  const files = await Deno.readDir(DIRECTORY);
   const promises = [];
   for await (const file of files) {
     const slug = file.name.replace(".md", "");
@@ -38,15 +31,7 @@ export async function getPosts(): Promise<Post[]> {
 
 // Get post.
 export async function getPost(slug: string): Promise<Post | null> {
-  const HACK = Deno.env.get("RELATIVE_LOCATION");
-  // this is needed for testing. i'm sure there is a better way, but this at least allows me to move forward
-  let text: string;
-  if (HACK) {
-    text = await Deno.readTextFile(join(HACK, `${slug}.md`));
-  } else {
-    text = await Deno.readTextFile(join(DIRECTORY, `${slug}.md`));
-  }
-
+  const text = await Deno.readTextFile(join(DIRECTORY, `${slug}.md`));
   const { attrs, body } = extract(text);
   const parms = attrs as Record<string, string>;
   return {

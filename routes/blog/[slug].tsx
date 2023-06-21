@@ -6,9 +6,12 @@ import { Head } from "$fresh/runtime.ts";
 
 export const handler: Handlers<Post> = {
   async GET(_req, ctx) {
-    const post = await getPost(ctx.params.slug);
-    if (post === null) return ctx.renderNotFound();
-    return ctx.render(post);
+    try {
+      const post = await getPost(ctx.params.slug);
+      return ctx.render(post!);
+    } catch (error) {
+      return ctx.renderNotFound();
+    }
   },
 };
 
