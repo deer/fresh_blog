@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/deer/fresh_blog/badge.svg?branch=main)](https://coveralls.io/github/deer/fresh_blog?branch=main)
+
 ## Fresh Blog
 
 This project provides a
