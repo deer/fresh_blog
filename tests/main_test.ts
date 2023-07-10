@@ -40,7 +40,7 @@ Deno.test("missing post render test", async () => {
   Deno.chdir(prev);
 });
 
-Deno.test("index page has four posts", async () => {
+Deno.test("index page has five posts", async () => {
   const prev = Deno.cwd();
   const dirname = new URL(".", import.meta.url).pathname + "fixture/";
   Deno.chdir(dirname);
@@ -52,7 +52,7 @@ Deno.test("index page has four posts", async () => {
   );
   const body = await resp.text();
   assertEquals(
-    4,
+    5,
     occurrences(
       body,
       `By`,
@@ -82,7 +82,7 @@ Deno.test("reed author page has two posts", async () => {
   Deno.chdir(prev);
 });
 
-Deno.test("archive page has three posts", async () => {
+Deno.test("archive page has four posts", async () => {
   const prev = Deno.cwd();
   const dirname = new URL(".", import.meta.url).pathname + "fixture/";
   Deno.chdir(dirname);
@@ -94,7 +94,7 @@ Deno.test("archive page has three posts", async () => {
   );
   const body = await resp.text();
   assertEquals(
-    3,
+    4,
     occurrences(
       body,
       `By`,
@@ -119,6 +119,27 @@ Deno.test("placeholder tag page has two posts", async () => {
     occurrences(
       body,
       `<a href="/archive/placeholder"`,
+    ),
+  );
+  Deno.chdir(prev);
+});
+
+Deno.test("single tag test", async () => {
+  const prev = Deno.cwd();
+  const dirname = new URL(".", import.meta.url).pathname + "fixture/";
+  Deno.chdir(dirname);
+  const handler = await createHandler(manifest, {
+    plugins: [blogPlugin(blogConfig)],
+  });
+  const resp = await handler(
+    new Request("http://127.0.0.1/archive/single-tag-test"),
+  );
+  const body = await resp.text();
+  assertEquals(
+    1,
+    occurrences(
+      body,
+      `<a href="/archive/single-tag-test"`,
     ),
   );
   Deno.chdir(prev);
