@@ -35,7 +35,7 @@ Deno.test("missing post render test", async () => {
   const body = await resp.text();
   assertStringIncludes(
     body,
-    "This page does not have a component to render.",
+    "Not found.",
   );
   Deno.chdir(prev);
 });
