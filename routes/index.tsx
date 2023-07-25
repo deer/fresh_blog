@@ -3,7 +3,7 @@ import { PageProps } from "$fresh/server.ts";
 import PostList from "../components/PostList.tsx";
 import { getPosts, Post } from "../utils/posts.ts";
 
-export const handler: Handlers<Post[]> = {
+export const handler: Handlers = {
   async GET(_req, ctx) {
     const posts = await getPosts();
     return ctx.render(posts);
