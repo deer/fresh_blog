@@ -1,17 +1,18 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { getPost, Post } from "../../utils/posts.ts";
+import { Post } from "../../utils/posts.ts";
 import { CSS, render } from "https://deno.land/x/gfm@0.2.3/mod.ts";
 import { Head } from "$fresh/runtime.ts";
+import { BlogState } from "../_middleware.ts";
 // import Disqus from "../../islands/Disqus.tsx";
 
-export const handler: Handlers<Post> = {
-  async GET(_req, ctx) {
-    try {
-      const post = await getPost(ctx.params.slug);
-      return ctx.render(post!);
-    } catch (error) {
+export const handler: Handlers<Post, BlogState> = {
+  GET(_req, ctx) {
+    const posts = ctx.state.context.posts;
+    const post = posts.find((x) => x.slug === ctx.params.slug);
+    if (!post) {
       return ctx.renderNotFound();
     }
+    return ctx.render(post!);
   },
 };
 
@@ -39,6 +40,16 @@ export default function PostPage(props: PageProps<Post>) {
         dangerouslySetInnerHTML={{ __html: html }}
       />
       {/* <Disqus title={post.title} identifier={post.slug} /> */}
+      {post.prev && (
+        <a class="sm:col-span-2" href={`/blog/${post.prev}`}>
+          ← Previous Post
+        </a>
+      )}
+      {post.next && (
+        <a class="sm:col-span-2" href={`/blog/${post.next}`}>
+          Next Post →
+        </a>
+      )}
     </>
   );
 }
