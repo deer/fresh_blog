@@ -33,11 +33,7 @@ export function handlerBuilder(path: string) {
       if (!Context.instance()) {
         await Context.init(path);
       }
-      if (ctx.destination === "route") {
-        ctx.state.context = Context.instance();
-        const resp = await ctx.next();
-        return resp;
-      }
+      ctx.state.context = Context.instance();
       return await ctx.next();
     }
   };

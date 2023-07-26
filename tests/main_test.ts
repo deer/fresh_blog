@@ -1,4 +1,4 @@
-import { createHandler } from "$fresh/server.ts";
+import { createHandler, Status } from "$fresh/server.ts";
 import manifest from "./fixture/fresh.gen.ts";
 import {
   assert,
@@ -141,6 +141,19 @@ Deno.test("last post has no next", async () => {
   );
   const body = await resp.text();
   assert(!body.includes("Next Post →"));
+});
+
+Deno.test("favicon skip middleware", async () => {
+  const handler = await createHandler(manifest, {
+    plugins: [blogPlugin(blogConfig)],
+  });
+  const resp = await handler(
+    new Request("http://127.0.0.1/favicon.ico"),
+  );
+  assertEquals(resp.status, Status.OK);
+  assertEquals(resp.headers.get("content-type"), "image/vnd.microsoft.icon");
+  const body = await resp.text();
+  assert(!body.includes("Demo Blog"));
 });
 
 function occurrences(string: string, substring: string) {
