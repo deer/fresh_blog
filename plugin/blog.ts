@@ -10,16 +10,22 @@ import ArchivePage from "../routes/archive/index.tsx";
 import { handler as archiveHandler } from "../routes/archive/index.tsx";
 import TagPage from "../routes/archive/[tag].tsx";
 import { handler as tagHandler } from "../routes/archive/[tag].tsx";
+import { handlerBuilder as contextMiddleware } from "../routes/_middleware.ts";
 export type { Options };
 
 interface Options {
   title: string;
   navbarItems: Record<string, string>;
+  rootPath: string;
 }
 
 export default function blog(options: Options): Plugin {
   return {
     name: "blog_plugin",
+    middlewares: [{
+      middleware: { handler: contextMiddleware(options.rootPath) },
+      path: "/",
+    }],
     routes: [{
       path: "/blog/[slug]",
       component: PostPage,

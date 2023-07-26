@@ -6,4 +6,5 @@ export default {
     Home: "/",
     Archive: "/archive",
   },
+  rootPath: import.meta.url,
 } as Options;

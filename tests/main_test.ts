@@ -1,13 +1,14 @@
 import { createHandler } from "$fresh/server.ts";
 import manifest from "./fixture/fresh.gen.ts";
-import { assertEquals, assertStringIncludes } from "$std/testing/asserts.ts";
+import {
+  assert,
+  assertEquals,
+  assertStringIncludes,
+} from "$std/testing/asserts.ts";
 import blogPlugin from "../plugin/blog.ts";
 import blogConfig from "./fixture/blog.config.ts";
 
 Deno.test("basic post render test", async () => {
-  const prev = Deno.cwd();
-  const dirname = new URL(".", import.meta.url).pathname + "fixture/";
-  Deno.chdir(dirname);
   const handler = await createHandler(manifest, {
     plugins: [blogPlugin(blogConfig)],
   });
@@ -19,13 +20,9 @@ Deno.test("basic post render test", async () => {
     body,
     "There's even more content if you click into the post.",
   );
-  Deno.chdir(prev);
 });
 
 Deno.test("missing post render test", async () => {
-  const prev = Deno.cwd();
-  const dirname = new URL(".", import.meta.url).pathname + "fixture/";
-  Deno.chdir(dirname);
   const handler = await createHandler(manifest, {
     plugins: [blogPlugin(blogConfig)],
   });
@@ -37,13 +34,9 @@ Deno.test("missing post render test", async () => {
     body,
     "Not found.",
   );
-  Deno.chdir(prev);
 });
 
 Deno.test("index page has five posts", async () => {
-  const prev = Deno.cwd();
-  const dirname = new URL(".", import.meta.url).pathname + "fixture/";
-  Deno.chdir(dirname);
   const handler = await createHandler(manifest, {
     plugins: [blogPlugin(blogConfig)],
   });
@@ -58,13 +51,9 @@ Deno.test("index page has five posts", async () => {
       `By`,
     ),
   );
-  Deno.chdir(prev);
 });
 
 Deno.test("reed author page has two posts", async () => {
-  const prev = Deno.cwd();
-  const dirname = new URL(".", import.meta.url).pathname + "fixture/";
-  Deno.chdir(dirname);
   const handler = await createHandler(manifest, {
     plugins: [blogPlugin(blogConfig)],
   });
@@ -79,13 +68,9 @@ Deno.test("reed author page has two posts", async () => {
       `<a href="/author/reed-von-redwitz">Reed von Redwitz</a>`,
     ),
   );
-  Deno.chdir(prev);
 });
 
 Deno.test("archive page has four posts", async () => {
-  const prev = Deno.cwd();
-  const dirname = new URL(".", import.meta.url).pathname + "fixture/";
-  Deno.chdir(dirname);
   const handler = await createHandler(manifest, {
     plugins: [blogPlugin(blogConfig)],
   });
@@ -100,13 +85,9 @@ Deno.test("archive page has four posts", async () => {
       `By`,
     ),
   );
-  Deno.chdir(prev);
 });
 
 Deno.test("placeholder tag page has two posts", async () => {
-  const prev = Deno.cwd();
-  const dirname = new URL(".", import.meta.url).pathname + "fixture/";
-  Deno.chdir(dirname);
   const handler = await createHandler(manifest, {
     plugins: [blogPlugin(blogConfig)],
   });
@@ -121,13 +102,9 @@ Deno.test("placeholder tag page has two posts", async () => {
       `<a href="/archive/placeholder"`,
     ),
   );
-  Deno.chdir(prev);
 });
 
 Deno.test("single tag test", async () => {
-  const prev = Deno.cwd();
-  const dirname = new URL(".", import.meta.url).pathname + "fixture/";
-  Deno.chdir(dirname);
   const handler = await createHandler(manifest, {
     plugins: [blogPlugin(blogConfig)],
   });
@@ -142,7 +119,28 @@ Deno.test("single tag test", async () => {
       `<a href="/archive/single-tag-test"`,
     ),
   );
-  Deno.chdir(prev);
+});
+
+Deno.test("first post has no previous", async () => {
+  const handler = await createHandler(manifest, {
+    plugins: [blogPlugin(blogConfig)],
+  });
+  const resp = await handler(
+    new Request("http://127.0.0.1/archive/first-test-post"),
+  );
+  const body = await resp.text();
+  assert(!body.includes("← Previous Post"));
+});
+
+Deno.test("last post has no next", async () => {
+  const handler = await createHandler(manifest, {
+    plugins: [blogPlugin(blogConfig)],
+  });
+  const resp = await handler(
+    new Request("http://127.0.0.1/archive/single-tag-test"),
+  );
+  const body = await resp.text();
+  assert(!body.includes("Next Post →"));
 });
 
 function occurrences(string: string, substring: string) {
