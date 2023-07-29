@@ -1,11 +1,12 @@
-import { createHandler, Status } from "$fresh/server.ts";
-import manifest from "./fixture/fresh.gen.ts";
 import {
   assert,
   assertEquals,
   assertStringIncludes,
-} from "$std/testing/asserts.ts";
-import blogPlugin from "../plugin/blog.ts";
+  createHandler,
+  Status,
+} from "../deps.ts";
+import manifest from "./fixture/fresh.gen.ts";
+import { blogPlugin } from "../src/plugin/blog.ts";
 import blogConfig from "./fixture/blog.config.ts";
 
 Deno.test("basic post render test", async () => {

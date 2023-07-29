@@ -1,4 +1,4 @@
-import { Plugin } from "$fresh/server.ts";
+import { Plugin } from "../../deps.ts";
 import { handler as blogSlugHandler } from "../routes/blog/[slug].tsx";
 import PostPage from "../routes/blog/[slug].tsx";
 import { AppBuilder } from "../routes/_app.tsx";
@@ -11,15 +11,15 @@ import { handler as archiveHandler } from "../routes/archive/index.tsx";
 import TagPage from "../routes/archive/[tag].tsx";
 import { handler as tagHandler } from "../routes/archive/[tag].tsx";
 import { handlerBuilder as contextMiddleware } from "../routes/_middleware.ts";
-export type { Options };
+export type { BlogOptions };
 
-interface Options {
+interface BlogOptions {
   title: string;
   navbarItems: Record<string, string>;
   rootPath: string;
 }
 
-export default function blog(options: Options): Plugin {
+export function blogPlugin(options: BlogOptions): Plugin {
   return {
     name: "blog_plugin",
     middlewares: [{

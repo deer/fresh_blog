@@ -1,8 +1,8 @@
-import { AppProps } from "$fresh/server.ts";
+import { AppProps } from "../../deps.ts";
 import Header from "../components/Header.tsx";
-import { Options } from "../plugin/blog.ts";
+import { BlogOptions } from "../plugin/blog.ts";
 
-export function AppBuilder(options: Options) {
+export function AppBuilder(options: BlogOptions) {
   return (props: AppProps) => {
     const { Component, route } = props;
     return (

@@ -1,7 +1,7 @@
-import { Options } from "../plugin/blog.ts";
+import { BlogOptions } from "../plugin/blog.ts";
 
 export default function NavigationBar(
-  props: { active: string; class?: string; options: Options },
+  props: { active: string; class?: string; options: BlogOptions },
 ) {
   const isHome = props.active == "/";
   return (

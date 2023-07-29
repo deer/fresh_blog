@@ -1,4 +1,4 @@
-import { Options } from "../../plugin/blog.ts";
+import { BlogOptions } from "../../mod.ts";
 
 export default {
   title: "Demo Blog",
@@ -7,4 +7,4 @@ export default {
     Archive: "/archive",
   },
   rootPath: import.meta.url,
-} as Options;
+} as BlogOptions;

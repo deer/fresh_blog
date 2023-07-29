@@ -12,7 +12,7 @@ import manifest from "./fresh.gen.ts";
 import twindPlugin from "$fresh/plugins/twind.ts";
 import twindConfig from "./twind.config.ts";
 
-import blogPlugin from "../../plugin/blog.ts";
+import { blogPlugin } from "../../src/plugin/blog.ts";
 import blogConfig from "./blog.config.ts";
 
 await start(manifest, {

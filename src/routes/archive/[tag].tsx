@@ -1,5 +1,4 @@
-import { Handlers } from "$fresh/server.ts";
-import { PageProps } from "$fresh/server.ts";
+import { Handlers, PageProps } from "../../../deps.ts";
 import { Post } from "../../utils/posts.ts";
 import PostList from "../../components/PostList.tsx";
 import { BlogState } from "../_middleware.ts";

@@ -1,4 +1,4 @@
-import { MiddlewareHandlerContext } from "$fresh/server.ts";
+import { MiddlewareHandlerContext } from "../../deps.ts";
 import { getPosts, Post } from "../utils/posts.ts";
 
 export interface BlogState {

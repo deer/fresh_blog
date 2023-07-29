@@ -1,6 +1,5 @@
-import { extract } from "$std/front_matter/yaml.ts";
-import { join } from "$std/path/posix.ts";
-import { dirname, fromFileUrl } from "$std/path/mod.ts";
+import { extract } from "../../deps.ts";
+import { dirname, fromFileUrl, join } from "../../deps.ts";
 
 export interface Post {
   slug: string;
