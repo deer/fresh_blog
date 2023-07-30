@@ -5,15 +5,19 @@ export default function PostSummary(
 ) {
   const { post, showExcerpt } = props;
   return (
-    <div class="py-4 border(t gray-200)">
+    <div class="py-4 border(t gray-200)" id={`post:${post.slug}`}>
       <a class="sm:col-span-2" href={`/blog/${post.slug}`}>
         <h3 class="text(3xl gray-900) font-bold">
           {post.title}
         </h3>
       </a>
       <div>
-        <span class=" text-gray-500 mr-1">By</span>
-        {reduceAuthors(post.author)}
+        {hasNonNullContent(post.author) && (
+          <>
+            <span class="text-gray-500 mr-1">By</span>
+            {reduceAuthors(post.author)}
+          </>
+        )}
         <time class="ml-1 text-gray-500">
           {new Date(post.date).toLocaleDateString("en-us", {
             year: "numeric",
@@ -21,9 +25,9 @@ export default function PostSummary(
             day: "numeric",
           })}
         </time>
-        {tags(post.tags)}
+        {hasNonNullContent(post.tags) && tags(post.tags)}
       </div>
-      {showExcerpt && (
+      {showExcerpt && (post.excerpt != "") && (
         <div>
           <div>{post.excerpt}</div>
           <a class="sm:col-span-2" href={`/blog/${post.slug}`}>
@@ -33,6 +37,10 @@ export default function PostSummary(
       )}
     </div>
   );
+}
+
+function hasNonNullContent(array: string[]) {
+  return array.some((item) => item != null);
 }
 
 function reduceAuthors(authors: string[]) {

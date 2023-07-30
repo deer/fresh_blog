@@ -20,6 +20,7 @@ export default function AuthorPage(props: PageProps<Post[]>) {
 function hasMatchingAuthor(authors: string[], searchString: string): boolean {
   const formattedSearchString = searchString.replace(/-/g, " ").toLowerCase();
   return authors.some((author) => {
+    if (!author) return false;
     const formattedAuthor = author.replace(/-/g, " ").toLowerCase();
     return formattedAuthor === formattedSearchString;
   });

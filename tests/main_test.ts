@@ -8,6 +8,10 @@ import {
 import manifest from "./fixture/fresh.gen.ts";
 import { blogPlugin } from "../src/plugin/blog.ts";
 import blogConfig from "./fixture/blog.config.ts";
+import {
+  DOMParser,
+  Element,
+} from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
 
 Deno.test("basic post render test", async () => {
   const handler = await createHandler(manifest, {
@@ -155,6 +159,33 @@ Deno.test("favicon skip middleware", async () => {
   assertEquals(resp.headers.get("content-type"), "image/vnd.microsoft.icon");
   const body = await resp.text();
   assert(!body.includes("Demo Blog"));
+});
+
+Deno.test("plain post has no tag, author, or continue reading", async () => {
+  const handler = await createHandler(manifest, {
+    plugins: [blogPlugin(blogConfig)],
+  });
+  const resp = await handler(
+    new Request("http://127.0.0.1/"),
+  );
+  const body = await resp.text();
+  const doc = new DOMParser().parseFromString(body, "text/html")!;
+  const post = doc.getElementById("post:plain-post");
+
+  if (post instanceof Element) {
+    const authorLink = post.querySelector("a[href^='/author/']");
+    const tagLink = post.querySelector("a[href^='/archive/']");
+    const allLinks = Array.from(post.getElementsByTagName("a"));
+    const continueReadingLink = allLinks.find((link) =>
+      link.textContent.includes("Continue reading")
+    );
+
+    assertEquals(authorLink, null);
+    assertEquals(tagLink, null);
+    assertEquals(continueReadingLink, undefined);
+  } else {
+    throw new Error("post:plain-post not found");
+  }
 });
 
 function occurrences(string: string, substring: string) {

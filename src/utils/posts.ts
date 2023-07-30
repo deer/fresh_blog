@@ -44,7 +44,7 @@ export async function getPost(dir: string, slug: string): Promise<Post> {
     title: parms.title,
     date: new Date(parms.date),
     content: body,
-    excerpt: (body as string).split(/<!--\s*more\s*-->/i)[0],
+    excerpt: "",
     description: parms.description,
     draft: parms.draft ? Boolean(JSON.parse(parms.draft)) : false,
     author: typeof parms.author === "object" ? parms.author : [parms.author],
@@ -52,6 +52,10 @@ export async function getPost(dir: string, slug: string): Promise<Post> {
     next: null, // set to null initially, to be computed in getPosts
     prev: null, // set to null initially, to be computed in getPosts
   };
+
+  if ((body as string).includes("<!--more-->")) {
+    post.excerpt = (body as string).split(/<!--\s*more\s*-->/i)[0];
+  }
 
   return post;
 }
