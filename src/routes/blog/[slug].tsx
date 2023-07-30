@@ -38,16 +38,14 @@ export default function PostPage(props: PageProps<Post>) {
         dangerouslySetInnerHTML={{ __html: html }}
       />
       {/* <Disqus title={post.title} identifier={post.slug} /> */}
-      {post.prev && (
-        <a class="sm:col-span-2" href={`/blog/${post.prev}`}>
-          ← Previous Post
-        </a>
-      )}
-      {post.next && (
-        <a class="sm:col-span-2" href={`/blog/${post.next}`}>
-          Next Post →
-        </a>
-      )}
+      <nav class="flex mt-8">
+        {post.prev
+          ? <a href={`/blog/${post.prev}`}>← Previous Post</a>
+          : <div class="flex-grow"></div>}
+        {post.next
+          ? <a class="ml-auto" href={`/blog/${post.next}`}>Next Post →</a>
+          : <div></div>}
+      </nav>
     </>
   );
 }
