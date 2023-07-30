@@ -7,5 +7,5 @@ export default {
     Archive: "/archive",
   },
   rootPath: import.meta.url,
-  postsPerPage: 5,
+  postsPerPage: 10,
 } as BlogOptions;

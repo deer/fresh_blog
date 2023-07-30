@@ -2,8 +2,7 @@ import { Plugin } from "../../deps.ts";
 import { handler as blogSlugHandler } from "../routes/blog/[slug].tsx";
 import PostPage from "../routes/blog/[slug].tsx";
 import { AppBuilder } from "../routes/_app.tsx";
-import BlogIndexPage from "../routes/index.tsx";
-import { handler as indexHandler } from "../routes/index.tsx";
+import { buildBlogIndexPage, buildIndexHandler } from "../routes/index.tsx";
 import AuthorPage from "../routes/author/[author].tsx";
 import { handler as authorHandler } from "../routes/author/[author].tsx";
 import ArchivePage from "../routes/archive/index.tsx";
@@ -17,9 +16,14 @@ interface BlogOptions {
   title: string;
   navbarItems: Record<string, string>;
   rootPath: string;
+  postsPerPage?: number;
 }
 
-export function blogPlugin(options: BlogOptions): Plugin {
+export const DEFAULT_POSTS_PER_PAGE = 10;
+
+export function blogPlugin(
+  { postsPerPage = DEFAULT_POSTS_PER_PAGE, ...options }: BlogOptions,
+): Plugin {
   return {
     name: "blog_plugin",
     middlewares: [{
@@ -35,8 +39,8 @@ export function blogPlugin(options: BlogOptions): Plugin {
       component: AppBuilder(options),
     }, {
       path: "/index",
-      component: BlogIndexPage,
-      handler: indexHandler,
+      component: buildBlogIndexPage(postsPerPage),
+      handler: buildIndexHandler(postsPerPage),
     }, {
       path: "/archive",
       component: ArchivePage,

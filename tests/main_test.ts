@@ -1,6 +1,7 @@
 import {
   assert,
   assertEquals,
+  assertNotEquals,
   assertStringIncludes,
   createHandler,
   Status,
@@ -8,6 +9,7 @@ import {
 import manifest from "./fixture/fresh.gen.ts";
 import { blogPlugin } from "../src/plugin/blog.ts";
 import blogConfig from "./fixture/blog.config.ts";
+import longerPage from "./fixture/longerPage.config.ts";
 import {
   DOMParser,
   Element,
@@ -66,16 +68,16 @@ Deno.test("reed author page has two posts", async () => {
     new Request("http://127.0.0.1/author/reed-von-redwitz"),
   );
   const body = await resp.text();
+  const doc = new DOMParser().parseFromString(body, "text/html")!;
+  const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
+
   assertEquals(
     2,
-    occurrences(
-      body,
-      `<a href="/author/reed-von-redwitz">Reed von Redwitz</a>`,
-    ),
+    postElements.length,
   );
 });
 
-Deno.test("archive page has four posts", async () => {
+Deno.test("archive page has six posts", async () => {
   const handler = await createHandler(manifest, {
     plugins: [blogPlugin(blogConfig)],
   });
@@ -83,12 +85,12 @@ Deno.test("archive page has four posts", async () => {
     new Request("http://127.0.0.1/archive"),
   );
   const body = await resp.text();
+  const doc = new DOMParser().parseFromString(body, "text/html")!;
+  const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
+
   assertEquals(
-    4,
-    occurrences(
-      body,
-      `By`,
-    ),
+    6,
+    postElements.length,
   );
 });
 
@@ -100,12 +102,11 @@ Deno.test("placeholder tag page has two posts", async () => {
     new Request("http://127.0.0.1/archive/placeholder"),
   );
   const body = await resp.text();
+  const doc = new DOMParser().parseFromString(body, "text/html")!;
+  const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
   assertEquals(
     2,
-    occurrences(
-      body,
-      `<a href="/archive/placeholder"`,
-    ),
+    postElements.length,
   );
 });
 
@@ -186,6 +187,67 @@ Deno.test("plain post has no tag, author, or continue reading", async () => {
   } else {
     throw new Error("post:plain-post not found");
   }
+});
+
+Deno.test("first page has 'Next Page' link and no 'Previous Page' link", async () => {
+  const handler = await createHandler(manifest, {
+    plugins: [blogPlugin(blogConfig)],
+  });
+  const resp = await handler(
+    new Request("http://127.0.0.1/"),
+  );
+  const body = await resp.text();
+  const doc = new DOMParser().parseFromString(body, "text/html")!;
+
+  const previousPageLink = doc.getElementById("previous-page");
+  const nextPageLink = doc.getElementById("next-page");
+
+  assertEquals(previousPageLink, null);
+  assertNotEquals(nextPageLink, null);
+});
+
+Deno.test("second page has 'Previous Page' and no 'Next Page' links", async () => {
+  const handler = await createHandler(manifest, {
+    plugins: [blogPlugin(blogConfig)],
+  });
+  const resp = await handler(
+    new Request("http://127.0.0.1/?page=2"),
+  );
+  const body = await resp.text();
+  const doc = new DOMParser().parseFromString(body, "text/html")!;
+
+  const previousPageLink = doc.getElementById("previous-page");
+  const nextPageLink = doc.getElementById("next-page");
+
+  assertEquals(nextPageLink, null);
+  assertNotEquals(previousPageLink, null);
+});
+
+Deno.test("non-existent page returns 404", async () => {
+  const handler = await createHandler(manifest, {
+    plugins: [blogPlugin(blogConfig)],
+  });
+  const resp = await handler(
+    new Request("http://127.0.0.1/?page=3"),
+  );
+
+  assertEquals(resp.status, 404);
+});
+
+Deno.test("only one page means no next or previous links", async () => {
+  const handler = await createHandler(manifest, {
+    plugins: [blogPlugin(longerPage)],
+  });
+
+  const resp = await handler(new Request("http://127.0.0.1/"));
+  const body = await resp.text();
+  const doc = new DOMParser().parseFromString(body, "text/html")!;
+
+  const nextPageLink = doc.getElementById("next-page");
+  const previousPageLink = doc.getElementById("previous-page");
+
+  assertEquals(nextPageLink, null);
+  assertEquals(previousPageLink, null);
 });
 
 function occurrences(string: string, substring: string) {

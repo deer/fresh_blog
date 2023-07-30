@@ -1,15 +1,49 @@
 import { Handlers, PageProps } from "../../deps.ts";
+import Pagination from "../components/Pagination.tsx";
 import PostList from "../components/PostList.tsx";
 import { Post } from "../utils/posts.ts";
 import { BlogState } from "./_middleware.ts";
 
-export const handler: Handlers<Post[], BlogState> = {
-  GET(_req, ctx) {
-    const posts = ctx.state.context.posts;
-    return ctx.render(posts);
-  },
-};
+export function buildIndexHandler(
+  postsPerPage: number,
+): Handlers<{ posts: Post[]; page: number; totalPosts: number }, BlogState> {
+  return {
+    GET(req, ctx) {
+      const url = new URL(req.url);
+      const page = Number(url.searchParams.get("page")) || 1;
+      const posts = ctx.state.context.posts;
 
-export default function BlogIndexPage(props: PageProps<Post[]>) {
-  return <PostList posts={props.data} showExcerpt={true} />;
+      const totalPages = Math.ceil(posts.length / postsPerPage);
+
+      if (page < 1 || page > totalPages) {
+        return ctx.renderNotFound();
+      }
+
+      const start = (page - 1) * postsPerPage;
+      const end = start + postsPerPage;
+
+      const paginatedPosts = posts.slice(start, end);
+
+      return ctx.render({
+        posts: paginatedPosts,
+        page,
+        totalPosts: posts.length,
+      });
+    },
+  };
+}
+
+export function buildBlogIndexPage(postsPerPage: number) {
+  return function BlogIndexPage(
+    props: PageProps<{ posts: Post[]; page: number; totalPosts: number }>,
+  ) {
+    const { posts, page, totalPosts } = props.data;
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
+    return (
+      <div>
+        <PostList posts={posts} showExcerpt={true} />
+        <Pagination page={page} totalPages={totalPages} />
+      </div>
+    );
+  };
 }

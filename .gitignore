@@ -5,4 +5,5 @@
 .env.production.local
 .env.local
 cov_profile
-cov_profile.lcov
+cov.lcov
+cov

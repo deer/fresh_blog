@@ -21,5 +21,6 @@ export { CSS, render } from "https://deno.land/x/gfm@0.2.5/mod.ts";
 export {
   assert,
   assertEquals,
+  assertNotEquals,
   assertStringIncludes,
 } from "https://deno.land/std@0.195.0/assert/mod.ts";
