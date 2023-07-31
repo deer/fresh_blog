@@ -132,7 +132,7 @@ Deno.test("first post has no previous", async () => {
     plugins: [blogPlugin(blogConfig)],
   });
   const resp = await handler(
-    new Request("http://127.0.0.1/archive/first-test-post"),
+    new Request("http://127.0.0.1/blog/first-test-post"),
   );
   const body = await resp.text();
   assert(!body.includes("← Previous Post"));
@@ -143,7 +143,7 @@ Deno.test("last post has no next", async () => {
     plugins: [blogPlugin(blogConfig)],
   });
   const resp = await handler(
-    new Request("http://127.0.0.1/archive/single-tag-test"),
+    new Request("http://127.0.0.1/blog/single-tag-test"),
   );
   const body = await resp.text();
   assert(!body.includes("Next Post →"));
@@ -162,7 +162,7 @@ Deno.test("favicon skip middleware", async () => {
   assert(!body.includes("Demo Blog"));
 });
 
-Deno.test("plain post has no tag, author, or continue reading", async () => {
+Deno.test("plain post summary has no tag, author, or continue reading", async () => {
   const handler = await createHandler(manifest, {
     plugins: [blogPlugin(blogConfig)],
   });
