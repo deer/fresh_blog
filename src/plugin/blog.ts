@@ -17,7 +17,10 @@ interface BlogOptions {
   navbarItems: Record<string, string>;
   rootPath: string;
   postsPerPage?: number;
+  sources?: Source[];
 }
+
+export type Source = "local" | "notion";
 
 export const DEFAULT_POSTS_PER_PAGE = 10;
 
@@ -27,7 +30,12 @@ export function blogPlugin(
   return {
     name: "blog_plugin",
     middlewares: [{
-      middleware: { handler: contextMiddleware(options.rootPath) },
+      middleware: {
+        handler: contextMiddleware(
+          options.rootPath,
+          options.sources || ["local"],
+        ),
+      },
       path: "/",
     }],
     routes: [{

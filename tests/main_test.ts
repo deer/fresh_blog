@@ -10,10 +10,7 @@ import manifest from "./fixture/fresh.gen.ts";
 import { blogPlugin } from "../src/plugin/blog.ts";
 import blogConfig from "./fixture/blog.config.ts";
 import longerPage from "./fixture/longerPage.config.ts";
-import {
-  DOMParser,
-  Element,
-} from "https://deno.land/x/deno_dom@v0.1.38/deno-dom-wasm.ts";
+import { DOMParser, Element } from "./test_deps.ts";
 
 Deno.test("basic post render test", async () => {
   const handler = await createHandler(manifest, {
