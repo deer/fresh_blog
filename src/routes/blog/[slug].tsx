@@ -21,7 +21,6 @@ export default function PostPage(props: PageProps<Post>) {
     <>
       <Head>
         <style dangerouslySetInnerHTML={{ __html: CSS }} />
-        <link rel="stylesheet" href="/gfm.css" />
       </Head>
       <br />
       <br />

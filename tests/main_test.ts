@@ -77,7 +77,7 @@ Deno.test("reed author page has two posts", async () => {
   );
 });
 
-Deno.test("archive page has six posts", async () => {
+Deno.test("archive page has seven posts", async () => {
   const handler = await createHandler(manifest, {
     plugins: [blogPlugin(blogConfig)],
   });
@@ -89,7 +89,7 @@ Deno.test("archive page has six posts", async () => {
   const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
 
   assertEquals(
-    6,
+    7,
     postElements.length,
   );
 });
@@ -143,7 +143,7 @@ Deno.test("last post has no next", async () => {
     plugins: [blogPlugin(blogConfig)],
   });
   const resp = await handler(
-    new Request("http://127.0.0.1/blog/single-tag-test"),
+    new Request("http://127.0.0.1/blog/markdown-test"),
   );
   const body = await resp.text();
   assert(!body.includes("Next Post →"));
@@ -248,6 +248,21 @@ Deno.test("only one page means no next or previous links", async () => {
 
   assertEquals(nextPageLink, null);
   assertEquals(previousPageLink, null);
+});
+
+Deno.test("markdown test", async () => {
+  const handler = await createHandler(manifest, {
+    plugins: [blogPlugin(blogConfig)],
+  });
+
+  const resp = await handler(
+    new Request("http://127.0.0.1/blog/markdown-test"),
+  );
+  const body = await resp.text();
+  const doc = new DOMParser().parseFromString(body, "text/html")!;
+
+  const strikethroughContent = doc.querySelector(".markdown-body p del");
+  assertEquals(strikethroughContent?.textContent, "hey again");
 });
 
 function occurrences(string: string, substring: string) {
