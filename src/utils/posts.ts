@@ -65,22 +65,26 @@ export async function getPost(dir: string, slug: string): Promise<Post> {
 }
 
 export async function getNotionPosts() {
-  const env = await load();
-  // const api_key = Deno.env.get("BLOG_NOTION_API_KEY");
-  const api_key = env["BLOG_NOTION_API_KEY"];
+  await load({
+    export: true,
+  });
+
+  const api_key = Deno.env.get("BLOG_NOTION_API_KEY");
   if (!api_key) {
     throw Error("BLOG_NOTION_API_KEY must be set when using notion as a CMS.");
   }
+
   const notion = new Client({
     auth: api_key,
   });
-  // const database_id = Deno.env.get("BLOG_NOTION_DATABASE_ID");
-  const database_id = env["BLOG_NOTION_DATABASE_ID"];
+
+  const database_id = Deno.env.get("BLOG_NOTION_DATABASE_ID");
   if (!database_id) {
     throw Error(
       "BLOG_NOTION_DATABASE_ID must be set when using notion as a CMS.",
     );
   }
+
   const pages = await notion.databases.query({
     database_id: database_id,
   });
