@@ -1,6 +1,7 @@
 import notionConfig from "./fixture/notion.config.ts";
 import { parameterizedTests } from "./tests_parameterized.ts";
-import { assertStringIncludes, createHandler } from "../deps.ts";
+import { createHandler } from "../deps.ts";
+import { assertStringIncludes } from "./test_deps.ts";
 import manifest from "./fixture/fresh.gen.ts";
 import { blogPlugin } from "../src/plugin/blog.ts";
 import { Context } from "../src/routes/_middleware.ts";

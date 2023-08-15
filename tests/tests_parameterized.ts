@@ -3,9 +3,8 @@ import {
   assertEquals,
   assertNotEquals,
   assertStringIncludes,
-  createHandler,
-  Status,
-} from "../deps.ts";
+} from "./test_deps.ts";
+import { createHandler, Status } from "../deps.ts";
 import manifest from "./fixture/fresh.gen.ts";
 import { BlogOptions, blogPlugin } from "../src/plugin/blog.ts";
 import { DOMParser, Element } from "./test_deps.ts";
@@ -43,17 +42,12 @@ export function parameterizedTests(config: BlogOptions) {
     const handler = await createHandler(manifest, {
       plugins: [blogPlugin(config)],
     });
-    const resp = await handler(
-      new Request("http://127.0.0.1/"),
-    );
+    const resp = await handler(new Request("http://127.0.0.1/"));
     const body = await resp.text();
-    assertEquals(
-      5,
-      occurrences(
-        body,
-        `By`,
-      ),
-    );
+    const doc = new DOMParser().parseFromString(body, "text/html")!;
+    const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
+
+    assertEquals(postElements.length, 5);
   });
 
   Deno.test("reed author page has two posts", async () => {
@@ -68,8 +62,8 @@ export function parameterizedTests(config: BlogOptions) {
     const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
 
     assertEquals(
-      2,
       postElements.length,
+      2,
     );
   });
 
@@ -85,8 +79,8 @@ export function parameterizedTests(config: BlogOptions) {
     const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
 
     assertEquals(
-      7,
       postElements.length,
+      7,
     );
   });
 
@@ -101,8 +95,8 @@ export function parameterizedTests(config: BlogOptions) {
     const doc = new DOMParser().parseFromString(body, "text/html")!;
     const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
     assertEquals(
-      2,
       postElements.length,
+      2,
     );
   });
 
@@ -114,13 +108,12 @@ export function parameterizedTests(config: BlogOptions) {
       new Request("http://127.0.0.1/archive/single-tag-test"),
     );
     const body = await resp.text();
-    assertEquals(
-      1,
-      occurrences(
-        body,
-        `<a href="/archive/single-tag-test"`,
-      ),
+    const doc = new DOMParser().parseFromString(body, "text/html")!;
+    const linkElements = Array.from(
+      doc.querySelectorAll('a[href="/archive/single-tag-test"]'),
     );
+
+    assertEquals(linkElements.length, 1);
   });
 
   Deno.test("first post has no previous", async () => {
@@ -261,8 +254,4 @@ export function parameterizedTests(config: BlogOptions) {
     const strikethroughContent = doc.querySelector(".markdown-body p del");
     assertEquals(strikethroughContent?.textContent, "hey again");
   });
-}
-
-function occurrences(string: string, substring: string) {
-  return (string.match(new RegExp(substring, "gi")) || []).length;
 }

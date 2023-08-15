@@ -4,9 +4,10 @@ import { load } from "../../deps.ts";
 import type { PageObjectResponse, RichTextItemResponse } from "../../deps.ts";
 import { Client } from "../../deps.ts";
 
-type PageObjectProperties = PageObjectResponse["properties"];
+export type PageObjectProperties = PageObjectResponse["properties"];
 
-type PropertyValueType = PageObjectProperties[keyof PageObjectProperties];
+export type PropertyValueType =
+  PageObjectProperties[keyof PageObjectProperties];
 
 export interface Post {
   slug: string;
@@ -114,21 +115,21 @@ function mapNotionResultToBlogPost(notionResult: PageObjectResponse): Post {
   return post;
 }
 
-function parseTitle(property: PropertyValueType): string {
+export function parseTitle(property: PropertyValueType): string {
   if (property.type === "title") {
     return property.title.map(getContentFromRichTextItem).join(" ");
   }
   return "";
 }
 
-function parseRichText(property: PropertyValueType): string {
+export function parseRichText(property: PropertyValueType): string {
   if (property.type === "rich_text") {
     return property.rich_text.map(getContentFromRichTextItem).join(" ");
   }
   return "";
 }
 
-function getContentFromRichTextItem(item: RichTextItemResponse): string {
+export function getContentFromRichTextItem(item: RichTextItemResponse): string {
   switch (item.type) {
     case "text":
       return item.text.content;
@@ -141,21 +142,21 @@ function getContentFromRichTextItem(item: RichTextItemResponse): string {
   }
 }
 
-function parseDate(property: PropertyValueType): Date {
+export function parseDate(property: PropertyValueType): Date {
   if (property.type === "date" && property.date) {
     return new Date(property.date.start);
   }
   return new Date();
 }
 
-function parseCheckbox(property: PropertyValueType): boolean {
+export function parseCheckbox(property: PropertyValueType): boolean {
   if (property.type === "checkbox") {
     return property.checkbox;
   }
   return false;
 }
 
-function parseMultiSelect(property: PropertyValueType): string[] {
+export function parseMultiSelect(property: PropertyValueType): string[] {
   if (property.type === "multi_select") {
     return property.multi_select.map((option) => option.name);
   }
