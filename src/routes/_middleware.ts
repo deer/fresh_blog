@@ -12,11 +12,15 @@ export interface BlogState {
 }
 
 export class Context {
-  private static context: Context;
+  private static context: Context | undefined;
   public posts: Post[];
 
   public constructor(posts: Post[]) {
     this.posts = posts;
+  }
+
+  public static reset() {
+    this.context = undefined;
   }
 
   public static async init(dir: string, sources: Source[]) {

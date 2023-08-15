@@ -1,16 +1,12 @@
 import { extract } from "../../deps.ts";
 import { dirname, fromFileUrl, join } from "../../deps.ts";
-import {
-  PageObjectResponse,
-  RichTextItemResponse,
-} from "https://deno.land/x/notion_sdk@v2.2.3/src/api-endpoints.ts";
-import { Client } from "https://deno.land/x/notion_sdk@v2.2.3/src/mod.ts";
+import { load } from "../../deps.ts";
+import type { PageObjectResponse, RichTextItemResponse } from "../../deps.ts";
+import { Client } from "../../deps.ts";
 
 type PageObjectProperties = PageObjectResponse["properties"];
 
 type PropertyValueType = PageObjectProperties[keyof PageObjectProperties];
-
-import { load } from "https://deno.land/std/dotenv/mod.ts";
 
 export interface Post {
   slug: string;
@@ -137,11 +133,11 @@ function getContentFromRichTextItem(item: RichTextItemResponse): string {
     case "text":
       return item.text.content;
     case "mention":
-      return item.plain_text; // or handle mentions differently if needed
+      return item.plain_text;
     case "equation":
-      return item.plain_text; // or handle equations differently if needed
+      return item.plain_text;
     default:
-      return ""; // for any unhandled types
+      return "";
   }
 }
 
