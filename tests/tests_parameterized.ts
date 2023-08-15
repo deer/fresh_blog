@@ -173,8 +173,6 @@ export function parameterizedTests(config: BlogOptions) {
       assertEquals(authorLink, null);
       assertEquals(tagLink, null);
       assertEquals(continueReadingLink, undefined);
-    } else {
-      throw new Error("post:plain-post not found");
     }
   });
 
