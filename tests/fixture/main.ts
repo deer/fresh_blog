@@ -13,8 +13,8 @@ import twindPlugin from "$fresh/plugins/twind.ts";
 import twindConfig from "./twind.config.ts";
 
 import { blogPlugin } from "../../src/plugin/blog.ts";
-import blogConfig from "./blog.config.ts";
+import localConfig from "./local.config.ts";
 
 await start(manifest, {
-  plugins: [twindPlugin(twindConfig), blogPlugin(blogConfig)],
+  plugins: [twindPlugin(twindConfig), blogPlugin(localConfig)],
 });

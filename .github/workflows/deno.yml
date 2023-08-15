@@ -30,6 +30,9 @@ jobs:
 
       - name: Run tests
         run: deno test -A --coverage=cov/
+        env:
+          BLOG_NOTION_API_KEY: ${{ secrets.BLOG_NOTION_API_KEY }}
+          BLOG_NOTION_DATABASE_ID: ${{ secrets.BLOG_NOTION_DATABASE_ID }}
 
       - name: Generate coverage
         run: deno coverage --lcov cov/ > cov.lcov

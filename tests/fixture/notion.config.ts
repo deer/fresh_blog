@@ -7,5 +7,6 @@ export default {
     Archive: "/archive",
   },
   rootPath: import.meta.url,
-  postsPerPage: 10,
+  postsPerPage: 5,
+  sources: ["notion"],
 } as BlogOptions;

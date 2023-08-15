@@ -18,9 +18,9 @@ export {
 } from "https://deno.land/std@0.195.0/path/mod.ts";
 export { extract } from "https://deno.land/std@0.195.0/front_matter/yaml.ts";
 export { CSS, render } from "https://deno.land/x/gfm@0.2.5/mod.ts";
-export {
-  assert,
-  assertEquals,
-  assertNotEquals,
-  assertStringIncludes,
-} from "https://deno.land/std@0.195.0/assert/mod.ts";
+export { load } from "https://deno.land/std@0.195.0/dotenv/mod.ts";
+export { Client } from "https://deno.land/x/notion_sdk@v2.2.3/src/mod.ts";
+export type {
+  PageObjectResponse,
+  RichTextItemResponse,
+} from "https://deno.land/x/notion_sdk@v2.2.3/src/api-endpoints.ts";
