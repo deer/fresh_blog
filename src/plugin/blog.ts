@@ -18,6 +18,7 @@ interface BlogOptions {
   rootPath: string;
   postsPerPage?: number;
   sources?: Source[];
+  useSeparateIndex?: boolean;
 }
 
 export type Source = "local" | "notion";
@@ -46,7 +47,7 @@ export function blogPlugin(
       path: "/_app",
       component: AppBuilder(options),
     }, {
-      path: "/index",
+      path: options.useSeparateIndex ? "/blog" : "/index",
       component: buildBlogIndexPage(postsPerPage),
       handler: buildIndexHandler(postsPerPage),
     }, {
