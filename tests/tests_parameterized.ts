@@ -8,8 +8,10 @@ import { createHandler, Status } from "../deps.ts";
 import manifest from "./fixture/fresh.gen.ts";
 import { BlogOptions, blogPlugin } from "../src/plugin/blog.ts";
 import { DOMParser, Element } from "./test_deps.ts";
+import { assertTitle } from "./test_utils.ts";
 
 export function parameterizedTests(config: BlogOptions) {
+  const titlePrefix = config.title + " — ";
   Deno.test("basic post render test", async () => {
     const handler = await createHandler(manifest, {
       plugins: [blogPlugin(config)],
@@ -21,6 +23,20 @@ export function parameterizedTests(config: BlogOptions) {
     assertStringIncludes(
       body,
       "There's even more content if you click into the post.",
+    );
+  });
+
+  Deno.test("blog route not found", async () => {
+    const handler = await createHandler(manifest, {
+      plugins: [blogPlugin(config)],
+    });
+    const resp = await handler(
+      new Request("http://127.0.0.1/blog"),
+    );
+    const body = await resp.text();
+    assertStringIncludes(
+      body,
+      "Not found.",
     );
   });
 
@@ -48,6 +64,7 @@ export function parameterizedTests(config: BlogOptions) {
     const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
 
     assertEquals(postElements.length, 5);
+    assertTitle(doc, config.title);
   });
 
   Deno.test("reed author page has two posts", async () => {
@@ -65,6 +82,7 @@ export function parameterizedTests(config: BlogOptions) {
       postElements.length,
       2,
     );
+    assertTitle(doc, titlePrefix + "Author Archive");
   });
 
   Deno.test("archive page has seven posts", async () => {
@@ -82,6 +100,7 @@ export function parameterizedTests(config: BlogOptions) {
       postElements.length,
       7,
     );
+    assertTitle(doc, titlePrefix + "Archive");
   });
 
   Deno.test("placeholder tag page has two posts", async () => {
@@ -98,6 +117,7 @@ export function parameterizedTests(config: BlogOptions) {
       postElements.length,
       2,
     );
+    assertTitle(doc, titlePrefix + "Archive");
   });
 
   Deno.test("single tag test", async () => {

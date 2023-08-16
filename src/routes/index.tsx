@@ -1,4 +1,4 @@
-import { Handlers, PageProps } from "../../deps.ts";
+import { Handlers, Head, PageProps } from "../../deps.ts";
 import Pagination from "../components/Pagination.tsx";
 import PostList from "../components/PostList.tsx";
 import { Post } from "../utils/posts.ts";
@@ -33,17 +33,29 @@ export function buildIndexHandler(
   };
 }
 
-export function buildBlogIndexPage(postsPerPage: number) {
+export function createBlogIndexPage(
+  postsPerPage: number,
+  title: string,
+  useSeparateIndex: boolean | undefined,
+) {
+  if (useSeparateIndex) {
+    title += " — Blog";
+  }
   return function BlogIndexPage(
     props: PageProps<{ posts: Post[]; page: number; totalPosts: number }>,
   ) {
     const { posts, page, totalPosts } = props.data;
     const totalPages = Math.ceil(totalPosts / postsPerPage);
     return (
-      <div>
-        <PostList posts={posts} showExcerpt={true} />
-        <Pagination page={page} totalPages={totalPages} />
-      </div>
+      <>
+        <Head>
+          <title>{title}</title>
+        </Head>
+        <div>
+          <PostList posts={posts} showExcerpt={true} />
+          <Pagination page={page} totalPages={totalPages} />
+        </div>
+      </>
     );
   };
 }

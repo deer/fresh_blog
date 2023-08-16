@@ -1,13 +1,13 @@
 import { Plugin } from "../../deps.ts";
 import { handler as blogSlugHandler } from "../routes/blog/[slug].tsx";
-import PostPage from "../routes/blog/[slug].tsx";
+import { createPostPage } from "../routes/blog/[slug].tsx";
 import { AppBuilder } from "../routes/_app.tsx";
-import { buildBlogIndexPage, buildIndexHandler } from "../routes/index.tsx";
-import AuthorPage from "../routes/author/[author].tsx";
+import { buildIndexHandler, createBlogIndexPage } from "../routes/index.tsx";
+import { createAuthorPage } from "../routes/author/[author].tsx";
 import { handler as authorHandler } from "../routes/author/[author].tsx";
-import ArchivePage from "../routes/archive/index.tsx";
+import { createArchivePage } from "../routes/archive/index.tsx";
 import { handler as archiveHandler } from "../routes/archive/index.tsx";
-import TagPage from "../routes/archive/[tag].tsx";
+import { createTagPage } from "../routes/archive/[tag].tsx";
 import { handler as tagHandler } from "../routes/archive/[tag].tsx";
 import { handlerBuilder as contextMiddleware } from "../routes/_middleware.ts";
 export type { BlogOptions };
@@ -41,26 +41,30 @@ export function blogPlugin(
     }],
     routes: [{
       path: "/blog/[slug]",
-      component: PostPage,
+      component: createPostPage(options.title),
       handler: blogSlugHandler,
     }, {
       path: "/_app",
       component: AppBuilder(options),
     }, {
       path: options.useSeparateIndex ? "/blog" : "/index",
-      component: buildBlogIndexPage(postsPerPage),
+      component: createBlogIndexPage(
+        postsPerPage,
+        options.title,
+        options.useSeparateIndex,
+      ),
       handler: buildIndexHandler(postsPerPage),
     }, {
       path: "/archive",
-      component: ArchivePage,
+      component: createArchivePage(options.title),
       handler: archiveHandler,
     }, {
       path: "/archive/[tag]",
-      component: TagPage,
+      component: createTagPage(options.title),
       handler: tagHandler,
     }, {
       path: "/author/[author]",
-      component: AuthorPage,
+      component: createAuthorPage(options.title),
       handler: authorHandler,
     }],
   };

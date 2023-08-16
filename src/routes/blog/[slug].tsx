@@ -14,37 +14,40 @@ export const handler: Handlers<Post, BlogState> = {
   },
 };
 
-export default function PostPage(props: PageProps<Post>) {
-  const post = props.data;
-  const html = render(post.content);
-  return (
-    <>
-      <Head>
-        <style dangerouslySetInnerHTML={{ __html: CSS }} />
-      </Head>
-      <br />
-      <br />
-      <h2 class="text-3xl font-bold">{post.title}</h2>
-      <time class="text-gray-500">
-        {new Date(post.date).toLocaleDateString("en-us", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}
-      </time>
-      <div
-        class="mt-8 markdown-body"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-      {/* <Disqus title={post.title} identifier={post.slug} /> */}
-      <nav class="flex mt-8">
-        {post.prev
-          ? <a href={`/blog/${post.prev}`}>← Previous Post</a>
-          : <div class="flex-grow"></div>}
-        {post.next
-          ? <a class="ml-auto" href={`/blog/${post.next}`}>Next Post →</a>
-          : <div></div>}
-      </nav>
-    </>
-  );
+export function createPostPage(title: string) {
+  return function PostPage(props: PageProps<Post>) {
+    const post = props.data;
+    const html = render(post.content);
+    return (
+      <>
+        <Head>
+          <title>{title} — {post.title}</title>
+          <style dangerouslySetInnerHTML={{ __html: CSS }} />
+        </Head>
+        <br />
+        <br />
+        <h2 class="text-3xl font-bold">{post.title}</h2>
+        <time class="text-gray-500">
+          {new Date(post.date).toLocaleDateString("en-us", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </time>
+        <div
+          class="mt-8 markdown-body"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+        {/* <Disqus title={post.title} identifier={post.slug} /> */}
+        <nav class="flex mt-8">
+          {post.prev
+            ? <a href={`/blog/${post.prev}`}>← Previous Post</a>
+            : <div class="flex-grow"></div>}
+          {post.next
+            ? <a class="ml-auto" href={`/blog/${post.next}`}>Next Post →</a>
+            : <div></div>}
+        </nav>
+      </>
+    );
+  };
 }
