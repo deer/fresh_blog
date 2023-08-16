@@ -85,7 +85,7 @@ export function parameterizedTests(config: BlogOptions) {
     assertTitle(doc, titlePrefix + "Author Archive");
   });
 
-  Deno.test("archive page has seven posts", async () => {
+  Deno.test("archive page tests", async (t) => {
     const handler = await createHandler(manifest, {
       plugins: [blogPlugin(config)],
     });
@@ -94,13 +94,30 @@ export function parameterizedTests(config: BlogOptions) {
     );
     const body = await resp.text();
     const doc = new DOMParser().parseFromString(body, "text/html")!;
-    const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
 
-    assertEquals(
-      postElements.length,
-      7,
-    );
-    assertTitle(doc, titlePrefix + "Archive");
+    await t.step("archive page has seven posts", () => {
+      const postElements = Array.from(doc.querySelectorAll('div[id^="post:"]'));
+      assertEquals(postElements.length, 7);
+    });
+
+    await t.step("archive page has correct title", () => {
+      assertTitle(doc, titlePrefix + "Archive");
+    });
+
+    await t.step("archive page has no blank links", () => {
+      const tagLinks = Array.from(doc.querySelectorAll('a[id^="tag-link-"]'));
+      const blankLinks = tagLinks.filter((link) =>
+        link.textContent.trim() === ""
+      );
+      assertEquals(blankLinks.length, 0);
+    });
+
+    await t.step("archive page has alphabetically sorted links", () => {
+      const tagLinks = Array.from(doc.querySelectorAll('a[id^="tag-link-"]'));
+      const tags = tagLinks.map((link) => link.textContent);
+      const sortedTags = [...tags].sort();
+      assertEquals(tags, sortedTags);
+    });
   });
 
   Deno.test("placeholder tag page has two posts", async () => {
