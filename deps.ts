@@ -5,12 +5,12 @@ export type {
   MiddlewareHandlerContext,
   PageProps,
   Plugin,
-} from "https://deno.land/x/fresh@1.3.1/server.ts";
+} from "https://raw.githubusercontent.com/deer/fresh/feat_plugin_islands/server.ts";
 export {
   createHandler,
   Status,
-} from "https://deno.land/x/fresh@1.3.1/server.ts";
-export { Head } from "https://deno.land/x/fresh@1.3.1/runtime.ts";
+} from "https://raw.githubusercontent.com/deer/fresh/feat_plugin_islands/server.ts";
+export { Head } from "https://raw.githubusercontent.com/deer/fresh/feat_plugin_islands/runtime.ts";
 export {
   dirname,
   fromFileUrl,
