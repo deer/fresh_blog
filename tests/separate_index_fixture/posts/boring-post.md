@@ -1,5 +1,5 @@
 ---
-title: "Single Tag"
+title: "A Boring Post"
 date: 2023-8-15
 author: Some Author
 ---
