@@ -16,7 +16,9 @@ export function createArchivePage(title: string) {
       new Set(
         props.data.flatMap((post) => post.tags),
       ),
-    );
+    )
+      .filter((tag) => tag !== undefined)
+      .sort();
 
     return (
       <>
@@ -27,6 +29,7 @@ export function createArchivePage(title: string) {
           <div className="flex space-x-2 mb-4">
             {allTags.some((x) => x != null) && allTags.map((tag, index) => (
               <a
+                id={`tag-link-${tag}`}
                 href={`archive/${tag}`}
                 class="border border-gray-300 text-gray-500 py-1 px-2 rounded inline-block hover:bg-gray-300"
               >
