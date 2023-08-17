@@ -1,14 +1,36 @@
-import { CSS, Handlers, Head, PageProps, render } from "../../../deps.ts";
+import {
+  CodeBlockObjectResponse,
+  CSS,
+  Handlers,
+  Head,
+  PageProps,
+  render,
+} from "../../../deps.ts";
 import { Post } from "../../utils/posts.ts";
 import { BlogState } from "../_middleware.ts";
 // import Disqus from "../../islands/Disqus.tsx";
 
 export const handler: Handlers<Post, BlogState> = {
-  GET(_req, ctx) {
+  async GET(_req, ctx) {
     const posts = ctx.state.context.posts;
     const post = posts.find((x) => x.slug === ctx.params.slug);
     if (!post) {
       return ctx.renderNotFound();
+    }
+    if (post.notionId && !post.content) {
+      const blockChildren = await ctx.state.context.notionClient.blocks.children
+        .list({
+          block_id: post.notionId,
+        });
+      const codeBlocks = blockChildren.results.filter(
+        (block): block is CodeBlockObjectResponse =>
+          Object.prototype.hasOwnProperty.call(block, "type"),
+      );
+
+      const codeContent = codeBlocks
+        .filter((block) => block.type === "code" && block.code)
+        .map((block) => block.code.rich_text[0].plain_text);
+      post.content = codeContent[0];
     }
     return ctx.render(post!);
   },
@@ -17,7 +39,7 @@ export const handler: Handlers<Post, BlogState> = {
 export function createPostPage(title: string) {
   return function PostPage(props: PageProps<Post>) {
     const post = props.data;
-    const html = render(post.content);
+    const html = render(post.content!);
     return (
       <>
         <Head>

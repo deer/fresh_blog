@@ -13,7 +13,7 @@ export interface Post {
   slug: string;
   title: string;
   date: Date;
-  content: string;
+  content?: string;
   excerpt: string;
   description: string;
   draft: boolean;
@@ -21,6 +21,7 @@ export interface Post {
   tags: string[];
   next: string | null;
   prev: string | null;
+  notionId: string;
 }
 
 export async function getLocalPosts(dir: string): Promise<Post[]> {
@@ -55,6 +56,7 @@ export async function getPost(dir: string, slug: string): Promise<Post> {
     tags: typeof parms.tags === "object" ? parms.tags : [parms.tags],
     next: null, // set to null initially, to be computed in getPosts
     prev: null, // set to null initially, to be computed in getPosts
+    notionId: "",
   };
 
   if ((body as string).includes("<!--more-->")) {
@@ -101,19 +103,15 @@ function mapNotionResultToBlogPost(notionResult: PageObjectResponse): Post {
     slug: parseRichText(notionResult.properties.slug),
     title: parseTitle(notionResult.properties.Title),
     date: parseDate(notionResult.properties.Date),
-    content: parseRichText(notionResult.properties.Content),
-    excerpt: "",
+    excerpt: parseRichText(notionResult.properties.Excerpt),
     description: parseRichText(notionResult.properties.Description),
     draft: parseCheckbox(notionResult.properties.Draft),
     author: parseMultiSelect(notionResult.properties.Author),
     tags: parseMultiSelect(notionResult.properties.Tags),
     next: null, // set to null initially, to be computed in getPosts
     prev: null, // set to null initially, to be computed in getPosts
+    notionId: notionResult.id,
   };
-
-  if ((post.content as string).includes("<!--more-->")) {
-    post.excerpt = (post.content as string).split(/<!--\s*more\s*-->/i)[0];
-  }
 
   return post;
 }

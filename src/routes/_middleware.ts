@@ -1,4 +1,4 @@
-import { MiddlewareHandlerContext } from "../../deps.ts";
+import { Client, MiddlewareHandlerContext } from "../../deps.ts";
 import { Source } from "../plugin/blog.ts";
 import {
   getLocalPosts,
@@ -14,9 +14,11 @@ export interface BlogState {
 export class Context {
   private static context: Context | undefined;
   public posts: Post[];
+  public notionClient: Client;
 
-  public constructor(posts: Post[]) {
+  public constructor(posts: Post[], client: Client) {
     this.posts = posts;
+    this.notionClient = client;
   }
 
   public static reset() {
@@ -24,6 +26,9 @@ export class Context {
   }
 
   public static async init(dir: string, sources: Source[]) {
+    const notionClient = new Client({
+      auth: Deno.env.get("BLOG_NOTION_API_KEY"),
+    });
     let posts: Post[] = [];
     if (sources.includes("local")) {
       posts = posts.concat(await getLocalPosts(dir));
@@ -31,7 +36,7 @@ export class Context {
     if (sources.includes("notion")) {
       posts = posts.concat(await getNotionPosts());
     }
-    Context.context = new Context(sortPosts(posts));
+    Context.context = new Context(sortPosts(posts), notionClient);
     return Context.context;
   }
 
