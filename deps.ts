@@ -22,6 +22,7 @@ export { load } from "https://deno.land/std@0.195.0/dotenv/mod.ts";
 export { existsSync } from "https://deno.land/std@0.195.0/fs/mod.ts";
 export { Client } from "https://deno.land/x/notion_sdk@v2.2.3/src/mod.ts";
 export type {
+  CodeBlockObjectResponse,
   PageObjectResponse,
   RichTextItemResponse,
 } from "https://deno.land/x/notion_sdk@v2.2.3/src/api-endpoints.ts";
