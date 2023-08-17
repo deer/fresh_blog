@@ -1,4 +1,4 @@
-import { Plugin } from "../../deps.ts";
+import { dirname, existsSync, fromFileUrl, join, Plugin } from "../../deps.ts";
 import { handler as blogSlugHandler } from "../routes/blog/[slug].tsx";
 import { createPostPage } from "../routes/blog/[slug].tsx";
 import { AppBuilder } from "../routes/_app.tsx";
@@ -28,6 +28,12 @@ export const DEFAULT_POSTS_PER_PAGE = 10;
 export function blogPlugin(
   { postsPerPage = DEFAULT_POSTS_PER_PAGE, ...options }: BlogOptions,
 ): Plugin {
+  const postsDir = join(dirname(fromFileUrl(options.rootPath)), "/posts");
+  if (!existsSync(postsDir)) {
+    throw new Error(
+      `The specified posts directory '${postsDir}' does not exist.`,
+    );
+  }
   return {
     name: "blog_plugin",
     middlewares: [{

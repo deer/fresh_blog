@@ -19,6 +19,9 @@ export function createArchivePage(title: string) {
     )
       .filter((tag) => tag !== undefined)
       .sort();
+    if (props.data.length == 0) {
+      return <div>No posts found. Start writing!</div>;
+    }
 
     return (
       <>

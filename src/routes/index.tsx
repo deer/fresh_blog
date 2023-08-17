@@ -15,7 +15,7 @@ export function buildIndexHandler(
 
       const totalPages = Math.ceil(posts.length / postsPerPage);
 
-      if (page < 1 || page > totalPages) {
+      if (posts.length != 0 && (page < 1 || page > totalPages)) {
         return ctx.renderNotFound();
       }
 
@@ -45,6 +45,9 @@ export function createBlogIndexPage(
     props: PageProps<{ posts: Post[]; page: number; totalPosts: number }>,
   ) {
     const { posts, page, totalPosts } = props.data;
+    if (!posts || posts.length === 0) {
+      return <div>No posts found. Start writing!</div>;
+    }
     const totalPages = Math.ceil(totalPosts / postsPerPage);
     return (
       <>
