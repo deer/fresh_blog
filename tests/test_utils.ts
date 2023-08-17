@@ -67,6 +67,28 @@ export async function startFreshServer(options: Deno.CommandOptions) {
   return { serverProcess, lines, address };
 }
 
+export async function startFreshServerExpectErrors(
+  options: Deno.CommandOptions,
+) {
+  const { serverProcess, address } = await spawnServer(options, true);
+
+  if (address) {
+    throw Error("Server started correctly");
+  }
+
+  const errorDecoder = new TextDecoderStream();
+  const errorLines: ReadableStream<string> = serverProcess.stderr
+    .pipeThrough(errorDecoder)
+    .pipeThrough(new TextLineStream(), {
+      preventCancel: true,
+    });
+  let output = "";
+  for await (const line of errorLines) {
+    output += line + "\n";
+  }
+  return output;
+}
+
 async function spawnServer(
   options: Deno.CommandOptions,
   expectErrors = false,
