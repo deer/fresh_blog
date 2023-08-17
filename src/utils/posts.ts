@@ -28,6 +28,9 @@ export async function getLocalPosts(dir: string): Promise<Post[]> {
   const files = await Deno.readDir(postsDir);
   const posts: Post[] = [];
   for await (const file of files) {
+    if (!file.name.endsWith(".md")) {
+      continue;
+    }
     const slug = file.name.replace(".md", "");
     posts.push(await getPost(postsDir, slug));
   }
