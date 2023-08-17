@@ -29,7 +29,10 @@ export function blogPlugin(
   { postsPerPage = DEFAULT_POSTS_PER_PAGE, ...options }: BlogOptions,
 ): Plugin {
   const postsDir = join(dirname(fromFileUrl(options.rootPath)), "/posts");
-  if (!existsSync(postsDir)) {
+  if (
+    (options.sources?.includes("local") || !options.sources) &&
+    !existsSync(postsDir)
+  ) {
     throw new Error(
       `The specified posts directory '${postsDir}' does not exist.`,
     );
