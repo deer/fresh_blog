@@ -1,5 +1,5 @@
 import { BlogOptions } from "../plugin/blog.ts";
-import NavigationBar from "./NavigationBar.tsx";
+import NavigationBar from "../islands/NavigationBar.tsx";
 
 export default function Header(
   props: { options: BlogOptions; active: string },

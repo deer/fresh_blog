@@ -67,5 +67,9 @@ export function blogPlugin(
       component: createAuthorPage(options.title),
       handler: authorHandler,
     }],
+    islands: {
+      baseLocation: import.meta.url,
+      paths: ["../islands/NavigationBar.tsx"],
+    },
   };
 }
