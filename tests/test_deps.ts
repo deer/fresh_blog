@@ -20,3 +20,4 @@ export { delay } from "https://deno.land/std@0.195.0/async/delay.ts";
 export {
   TextLineStream,
 } from "https://deno.land/std@0.195.0/streams/text_line_stream.ts";
+export { $ } from "https://deno.land/x/dax@0.34.0/mod.ts";
