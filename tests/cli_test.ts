@@ -22,13 +22,15 @@ Deno.test({
     });
 
     await t.step("init git repo", async () => {
-      await $`cd ${tmpDirName} && git init`;
+      await $`cd ${tmpDirName} && git init && git branch -m main`;
+      await $`cd ${tmpDirName} && git config user.email "test@example.com"`;
+      await $`cd ${tmpDirName} && git config user.name "Test User"`;
       await $`cd ${tmpDirName} && git add . && git commit -m "Initial commit"`;
     });
 
     await t.step("run blog init", async () => {
-      const homeDir = Deno.env.get("HOME");
-      const initScriptPath = `${homeDir}/code/fresh_blog/src/init.ts`;
+      const cwd = Deno.cwd();
+      const initScriptPath = `${cwd}/src/init.ts`;
       await $`cd ${tmpDirName} && deno run -A ${initScriptPath}`.text();
     });
 
