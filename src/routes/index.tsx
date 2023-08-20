@@ -1,6 +1,7 @@
 import { Handlers, Head, PageProps } from "../../deps.ts";
 import Pagination from "../components/Pagination.tsx";
 import PostList from "../components/PostList.tsx";
+import { Localization } from "../plugin/blog.ts";
 import { Post } from "../utils/posts.ts";
 import { BlogState } from "./_middleware.ts";
 
@@ -37,16 +38,17 @@ export function createBlogIndexPage(
   postsPerPage: number,
   title: string,
   useSeparateIndex: boolean | undefined,
+  localization: Localization,
 ) {
   if (useSeparateIndex) {
-    title += " — Blog";
+    title += localization.blogTitleEnding;
   }
   return function BlogIndexPage(
     props: PageProps<{ posts: Post[]; page: number; totalPosts: number }>,
   ) {
     const { posts, page, totalPosts } = props.data;
     if (!posts || posts.length === 0) {
-      return <div>No posts found. Start writing!</div>;
+      return <div>{localization.noPostsFound}</div>;
     }
     const totalPages = Math.ceil(totalPosts / postsPerPage);
     return (
@@ -55,8 +57,8 @@ export function createBlogIndexPage(
           <title>{title}</title>
         </Head>
         <div>
-          <PostList posts={posts} showExcerpt={true} />
-          <Pagination page={page} totalPages={totalPages} />
+          <PostList posts={posts} showExcerpt={true} localization={localization}/>
+          <Pagination page={page} totalPages={totalPages} localization={localization}/>
         </div>
       </>
     );

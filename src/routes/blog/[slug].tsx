@@ -6,6 +6,7 @@ import {
   PageProps,
   render,
 } from "../../../deps.ts";
+import { Localization } from "../../plugin/blog.ts";
 import { Post } from "../../utils/posts.ts";
 import { BlogState } from "../_middleware.ts";
 // import Disqus from "../../islands/Disqus.tsx";
@@ -36,7 +37,7 @@ export const handler: Handlers<Post, BlogState> = {
   },
 };
 
-export function createPostPage(title: string) {
+export function createPostPage(title: string, localization: Localization) {
   return function PostPage(props: PageProps<Post>) {
     const post = props.data;
     const html = render(post.content!);
@@ -63,10 +64,10 @@ export function createPostPage(title: string) {
         {/* <Disqus title={post.title} identifier={post.slug} /> */}
         <nav class="flex mt-8">
           {post.prev
-            ? <a href={`/blog/${post.prev}`}>← Previous Post</a>
+            ? <a href={`/blog/${post.prev}`}>{localization.previousPost}</a>
             : <div class="flex-grow"></div>}
           {post.next
-            ? <a class="ml-auto" href={`/blog/${post.next}`}>Next Post →</a>
+            ? <a class="ml-auto" href={`/blog/${post.next}`}>{localization.nextPost}</a>
             : <div></div>}
         </nav>
       </>

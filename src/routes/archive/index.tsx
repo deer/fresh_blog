@@ -2,6 +2,7 @@ import { Handlers, Head, PageProps } from "../../../deps.ts";
 import { Post } from "../../utils/posts.ts";
 import PostList from "../../components/PostList.tsx";
 import { BlogState } from "../_middleware.ts";
+import { Localization } from "../../plugin/blog.ts";
 
 export const handler: Handlers<Post[], BlogState> = {
   GET(_req, ctx) {
@@ -10,7 +11,7 @@ export const handler: Handlers<Post[], BlogState> = {
   },
 };
 
-export function createArchivePage(title: string) {
+export function createArchivePage(title: string, localization: Localization) {
   return function ArchivePage(props: PageProps<Post[]>) {
     const allTags = Array.from(
       new Set(
@@ -20,13 +21,13 @@ export function createArchivePage(title: string) {
       .filter((tag) => tag !== undefined)
       .sort();
     if (props.data.length == 0) {
-      return <div>No posts found. Start writing!</div>;
+      return <div>{localization.noPostsFound}</div>;
     }
 
     return (
       <>
         <Head>
-          <title>{title} — Archive</title>
+          <title>{title}{localization.archiveTitleEnding}</title>
         </Head>
         <div>
           <div className="flex space-x-2 mb-4">
@@ -40,7 +41,7 @@ export function createArchivePage(title: string) {
               </a>
             ))}
           </div>
-          <PostList posts={props.data} showExcerpt={false} />
+          <PostList posts={props.data} showExcerpt={false} localization={localization}/>
         </div>
       </>
     );

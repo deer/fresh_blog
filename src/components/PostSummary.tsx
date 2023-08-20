@@ -1,8 +1,10 @@
 import { Post } from "../utils/posts.ts";
+import { Localization } from "../plugin/blog.ts";
 
 export default function PostSummary(
-  props: { post: Post; showExcerpt: boolean },
+  props: { post: Post; showExcerpt: boolean, localization: Localization },
 ) {
+  console.log(props.localization)
   const { post, showExcerpt } = props;
   return (
     <div class="py-4 border(t gray-200)" id={`post:${post.slug}`}>
@@ -14,7 +16,7 @@ export default function PostSummary(
       <div>
         {hasNonNullContent(post.author) && (
           <>
-            <span class="text-gray-500 mr-1">By</span>
+            <span class="text-gray-500 mr-1">{props.localization.attribution}</span>
             {reduceAuthors(post.author)}
           </>
         )}
@@ -31,7 +33,7 @@ export default function PostSummary(
         <div>
           <div>{post.excerpt}</div>
           <a class="sm:col-span-2" href={`/blog/${post.slug}`}>
-            Continue reading →
+            {props.localization.continueReading}
           </a>
         </div>
       )}

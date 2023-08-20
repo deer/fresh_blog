@@ -40,6 +40,7 @@ following:
 import {
   BlogOptions,
   blogPlugin,
+  Localization
 } from "https://deno.land/x/fresh_blog@0.0.1/mod.ts";
 ```
 
@@ -63,11 +64,27 @@ const blogOptions: BlogOptions = {
 
 There's also an option to configure the `postsPerPage` which defaults to 10.
 
+You'll also need to define your localization file.
+
+```ts
+const blogLocalization: Localization = {
+  attribution: "By",
+  nextPage: "Next Page →",
+  previousPage: "← Previous Page",
+  nextPost: "Next Post →",
+  previousPost: "← Previous Post",
+  continueReading: "Continue reading →",
+  noPostsFound: "No posts found. Start writing!",
+  blogTitleEnding: " — Blog",
+  archiveTitleEnding: " — Archive",
+  authorTitleEnding: " — Author Archive",
+};
+```
 Then change your `start` invocation like so:
 
 ```diff
 -await start(manifest);
-+await start(manifest, { plugins: [blogPlugin(blogOptions)] });
++await start(manifest, { plugins: [blogPlugin(blogOptions, blogLocalization)] });
 ```
 
 Put your posts in a `posts` folder at the root of your project. My personal blog
