@@ -7,18 +7,18 @@ export default function PostSummary(
   return (
     <div class="py-4 border(t gray-200)" id={`post:${post.slug}`}>
       <a class="sm:col-span-2" href={`/blog/${post.slug}`}>
-        <h3 class="text(3xl gray-900) font-bold">
+        <h3 class="text-3xl font-bold">
           {post.title}
         </h3>
       </a>
       <div>
         {hasNonNullContent(post.author) && (
           <>
-            <span class="text-gray-500 mr-1">By</span>
+            <span class="mr-1">By</span>
             {reduceAuthors(post.author)}
           </>
         )}
-        <time class="ml-1 text-gray-500">
+        <time class="ml-1">
           {new Date(post.date).toLocaleDateString("en-us", {
             year: "numeric",
             month: "long",
@@ -67,7 +67,7 @@ function tags(tags: string[]) {
     return (
       <a
         href={url}
-        class="border border-gray-300 text-gray-500 py-1 px-2 rounded inline-block hover:bg-gray-300"
+        class="border border-gray-300 py-1 px-2 rounded inline-block hover:bg-gray-300"
       >
         {tag}
       </a>

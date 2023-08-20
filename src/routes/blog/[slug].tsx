@@ -36,7 +36,7 @@ export const handler: Handlers<Post, BlogState> = {
   },
 };
 
-export function createPostPage(title: string) {
+export function createPostPage(title: string, markdownStyle = "light") {
   return function PostPage(props: PageProps<Post>) {
     const post = props.data;
     const html = render(post.content!);
@@ -57,6 +57,9 @@ export function createPostPage(title: string) {
           })}
         </time>
         <div
+          data-color-mode={markdownStyle}
+          data-light-theme="light"
+          data-dark-theme="dark"
           class="mt-8 markdown-body"
           dangerouslySetInnerHTML={{ __html: html }}
         />

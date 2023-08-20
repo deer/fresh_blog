@@ -19,6 +19,7 @@ interface BlogOptions {
   postsPerPage?: number;
   sources?: Source[];
   useSeparateIndex?: boolean;
+  markdownStyle?: "light" | "dark" | "auto";
 }
 
 export type Source = "local" | "notion";
@@ -50,7 +51,7 @@ export function blogPlugin(
     }],
     routes: [{
       path: "/blog/[slug]",
-      component: createPostPage(options.title),
+      component: createPostPage(options.title, options.markdownStyle),
       handler: blogSlugHandler,
     }, {
       path: "/_app",
