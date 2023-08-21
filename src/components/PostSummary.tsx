@@ -4,7 +4,6 @@ import { Localization } from "../plugin/blog.ts";
 export default function PostSummary(
   props: { post: Post; showExcerpt: boolean, localization: Localization },
 ) {
-  console.log(props.localization)
   const { post, showExcerpt } = props;
   return (
     <div class="py-4 border(t gray-200)" id={`post:${post.slug}`}>

@@ -10,7 +10,8 @@ import { handler as archiveHandler } from "../routes/archive/index.tsx";
 import { createTagPage } from "../routes/archive/[tag].tsx";
 import { handler as tagHandler } from "../routes/archive/[tag].tsx";
 import { handlerBuilder as contextMiddleware } from "../routes/_middleware.ts";
-export type { BlogOptions, Localization};
+import { languages } from "../utils/localization/languages.ts";
+export type { BlogOptions, Localization };
 
 interface BlogOptions {
   title: string;
@@ -19,6 +20,7 @@ interface BlogOptions {
   postsPerPage?: number;
   sources?: Source[];
   useSeparateIndex?: boolean;
+  lang: string;
 }
 
 interface Localization {
@@ -48,6 +50,18 @@ export function blogPlugin(
     throw new Error(
       `The specified posts directory '${postsDir}' does not exist.`,
     );
+  }
+  if (localization === undefined) {
+    switch (options.lang) {
+      case "en":
+        localization = languages.en;
+        break;
+      case "es":
+        localization = languages.es;
+        break;
+      default:
+        localization = languages.en;
+    }
   }
   return {
     name: "blog_plugin",

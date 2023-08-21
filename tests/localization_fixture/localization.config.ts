@@ -1,7 +1,7 @@
 import { Localization } from "../../mod.ts";
 
 export default {
-  attribution: "By",
+  attribution: "Post By",
   nextPage: "Next Page →",
   previousPage: "← Previous Page",
   nextPost: "Next Post →",

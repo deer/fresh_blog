@@ -59,12 +59,13 @@ const blogOptions: BlogOptions = {
     Contact: "/contact",
     Projects: "/projects",
   },
+  lang: "en",
 };
 ```
 
 There's also an option to configure the `postsPerPage` which defaults to 10.
 
-You'll also need to define your localization file.
+You can create custom Localization and add it as the second parameter for blogPlugin().
 
 ```ts
 const blogLocalization: Localization = {
