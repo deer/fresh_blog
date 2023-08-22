@@ -1,6 +1,6 @@
 /* Localization */
-import { en } from "./en.ts";
-import { es } from "./es.ts";
+import { en } from "./localization/en.ts";
+import { es } from "./localization/es.ts";
 
 export type Languages = "en" | "es" | "de";
 

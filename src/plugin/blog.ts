@@ -10,7 +10,7 @@ import { handler as archiveHandler } from "../routes/archive/index.tsx";
 import { createTagPage } from "../routes/archive/[tag].tsx";
 import { handler as tagHandler } from "../routes/archive/[tag].tsx";
 import { handlerBuilder as contextMiddleware } from "../routes/_middleware.ts";
-import { languages, Localization } from "../utils/localization/languages.ts";
+import { languages, Localization } from "../utils/localization.ts";
 export type { BlogOptions, Localization };
 
 interface BlogOptions {

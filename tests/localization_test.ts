@@ -3,7 +3,7 @@ import {
   assertExists,
 } from "https://deno.land/std@0.195.0/assert/mod.ts";
 import blogConfig from "./localization_fixture/local.config.ts";
-import { languages } from "../src/utils/localization/languages.ts";
+import { languages } from "../src/utils/localization.ts";
 import { createHandler } from "../deps.ts";
 import { assertStringIncludes } from "./test_deps.ts";
 import manifest from "./localization_fixture/fresh.gen.ts";
