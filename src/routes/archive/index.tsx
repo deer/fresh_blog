@@ -41,7 +41,11 @@ export function createArchivePage(title: string, localization: Localization) {
               </a>
             ))}
           </div>
-          <PostList posts={props.data} showExcerpt={false} localization={localization}/>
+          <PostList
+            posts={props.data}
+            showExcerpt={false}
+            localization={localization}
+          />
         </div>
       </>
     );

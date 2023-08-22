@@ -67,7 +67,11 @@ export function createPostPage(title: string, localization: Localization) {
             ? <a href={`/blog/${post.prev}`}>{localization.previousPost}</a>
             : <div class="flex-grow"></div>}
           {post.next
-            ? <a class="ml-auto" href={`/blog/${post.next}`}>{localization.nextPost}</a>
+            ? (
+              <a class="ml-auto" href={`/blog/${post.next}`}>
+                {localization.nextPost}
+              </a>
+            )
             : <div></div>}
         </nav>
       </>

@@ -1,7 +1,8 @@
-import { Localization } from "../../mod.ts";
-
-export default {
-  attribution: "Post By",
+import { Localization } from "../../../mod.ts";
+/* Engish */
+export const en: Localization = {
+  lang: "de",
+  attribution: "By",
   nextPage: "Next Page →",
   previousPage: "← Previous Page",
   nextPost: "Next Post →",
@@ -11,4 +12,4 @@ export default {
   blogTitleEnding: " — Blog",
   archiveTitleEnding: " — Archive",
   authorTitleEnding: " — Author Archive",
-} as Localization;
+};

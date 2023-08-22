@@ -57,8 +57,16 @@ export function createBlogIndexPage(
           <title>{title}</title>
         </Head>
         <div>
-          <PostList posts={posts} showExcerpt={true} localization={localization}/>
-          <Pagination page={page} totalPages={totalPages} localization={localization}/>
+          <PostList
+            posts={posts}
+            showExcerpt={true}
+            localization={localization}
+          />
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            localization={localization}
+          />
         </div>
       </>
     );

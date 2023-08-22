@@ -6,7 +6,9 @@ interface PaginationProps {
   localization: Localization;
 }
 
-export default function Pagination({ page, totalPages, localization}: PaginationProps) {
+export default function Pagination(
+  { page, totalPages, localization }: PaginationProps,
+) {
   const prevPage = page > 1 ? page - 1 : null;
   const nextPage = page < totalPages ? page + 1 : null;
 

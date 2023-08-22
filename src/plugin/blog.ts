@@ -20,28 +20,34 @@ interface BlogOptions {
   postsPerPage?: number;
   sources?: Source[];
   useSeparateIndex?: boolean;
-  lang: string;
+  strings?: Localization | Partial<Localization>;
 }
 
-interface Localization {
-  attribution: string;
-  nextPage: string;
-  previousPage: string;
-  nextPost: string;
-  previousPost: string;
-  continueReading: string;
-  noPostsFound: string;
-  blogTitleEnding: string;
-  archiveTitleEnding: string;
-  authorTitleEnding: string;
-}
+type Localization = {
+  attribution?: string;
+  nextPage?: string;
+  previousPage?: string;
+  nextPost?: string;
+  previousPost?: string;
+  continueReading?: string;
+  noPostsFound?: string;
+  blogTitleEnding?: string;
+  archiveTitleEnding?: string;
+  authorTitleEnding?: string;
+  lang?: Languages;
+};
+
+// type Localization = Strings & { lang: Languages };
+
+export type Languages = "en" | "es" | "de";
 
 export type Source = "local" | "notion";
 
 export const DEFAULT_POSTS_PER_PAGE = 10;
 
 export function blogPlugin(
-  { postsPerPage = DEFAULT_POSTS_PER_PAGE, ...options }: BlogOptions, localization: Localization): Plugin {
+  { postsPerPage = DEFAULT_POSTS_PER_PAGE, ...options }: BlogOptions,
+): Plugin {
   const postsDir = join(dirname(fromFileUrl(options.rootPath)), "/posts");
   if (
     (options.sources?.includes("local") || !options.sources) &&
@@ -51,18 +57,9 @@ export function blogPlugin(
       `The specified posts directory '${postsDir}' does not exist.`,
     );
   }
-  if (localization === undefined) {
-    switch (options.lang) {
-      case "en":
-        localization = languages.en;
-        break;
-      case "es":
-        localization = languages.es;
-        break;
-      default:
-        localization = languages.en;
-    }
-  }
+  const lang: string = options.strings?.lang || "en";
+  const localization: Localization = { ...languages[lang], ...options.strings };
+
   return {
     name: "blog_plugin",
     middlewares: [{
@@ -97,7 +94,7 @@ export function blogPlugin(
       path: "/archive",
       component: createArchivePage(
         options.title,
-        localization
+        localization,
       ),
       handler: archiveHandler,
     }, {

@@ -26,7 +26,11 @@ export function createTagPage(title: string, localization: Localization) {
         <Head>
           <title>{title}{localization.archiveTitleEnding}</title>
         </Head>
-        <PostList posts={props.data.posts} showExcerpt={false} localization={localization}/>
+        <PostList
+          posts={props.data.posts}
+          showExcerpt={false}
+          localization={localization}
+        />
       </>
     );
   };

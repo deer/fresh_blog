@@ -2,7 +2,7 @@ import { Post } from "../utils/posts.ts";
 import { Localization } from "../plugin/blog.ts";
 
 export default function PostSummary(
-  props: { post: Post; showExcerpt: boolean, localization: Localization },
+  props: { post: Post; showExcerpt: boolean; localization: Localization },
 ) {
   const { post, showExcerpt } = props;
   return (
@@ -15,7 +15,9 @@ export default function PostSummary(
       <div>
         {hasNonNullContent(post.author) && (
           <>
-            <span class="text-gray-500 mr-1">{props.localization.attribution}</span>
+            <span class="text-gray-500 mr-1">
+              {props.localization.attribution}
+            </span>
             {reduceAuthors(post.author)}
           </>
         )}

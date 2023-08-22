@@ -7,6 +7,9 @@ export default {
     Archive: "/archive",
   },
   rootPath: import.meta.url,
-  postsPerPage: 5,
-  lang: "es",
+  postsPerPage: 1,
+  strings: {
+    lang: "en",
+    attribution: "Post By:",
+  },
 } as BlogOptions;

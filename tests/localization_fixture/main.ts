@@ -14,8 +14,7 @@ import twindConfig from "./twind.config.ts";
 
 import { blogPlugin } from "../../src/plugin/blog.ts";
 import localConfig from "./local.config.ts";
-import localizationConfig from "./localization.config.ts";
 
 await start(manifest, {
-  plugins: [twindPlugin(twindConfig), blogPlugin(localConfig, localizationConfig)],
+  plugins: [twindPlugin(twindConfig), blogPlugin(localConfig)],
 });
