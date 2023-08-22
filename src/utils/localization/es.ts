@@ -1,4 +1,4 @@
-import { Localization } from "../../../mod.ts";
+import { Localization } from "../../plugin/blog.ts";
 /* Spanish */
 export const es: Localization = {
   lang: "es",

@@ -37,8 +37,6 @@ type Localization = {
   lang?: Languages;
 };
 
-// type Localization = Strings & { lang: Languages };
-
 export type Languages = "en" | "es" | "de";
 
 export type Source = "local" | "notion";
