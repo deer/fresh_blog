@@ -10,7 +10,7 @@ import { handler as archiveHandler } from "../routes/archive/index.tsx";
 import { createTagPage } from "../routes/archive/[tag].tsx";
 import { handler as tagHandler } from "../routes/archive/[tag].tsx";
 import { handlerBuilder as contextMiddleware } from "../routes/_middleware.ts";
-import { languages } from "../utils/localization/languages.ts";
+import { languages, Localization } from "../utils/localization/languages.ts";
 export type { BlogOptions, Localization };
 
 interface BlogOptions {
@@ -22,22 +22,6 @@ interface BlogOptions {
   useSeparateIndex?: boolean;
   strings?: Localization | Partial<Localization>;
 }
-
-type Localization = {
-  attribution?: string;
-  nextPage?: string;
-  previousPage?: string;
-  nextPost?: string;
-  previousPost?: string;
-  continueReading?: string;
-  noPostsFound?: string;
-  blogTitleEnding?: string;
-  archiveTitleEnding?: string;
-  authorTitleEnding?: string;
-  lang?: Languages;
-};
-
-export type Languages = "en" | "es" | "de";
 
 export type Source = "local" | "notion";
 
@@ -55,9 +39,9 @@ export function blogPlugin(
       `The specified posts directory '${postsDir}' does not exist.`,
     );
   }
+  /* Set default language */
   const lang: string = options.strings?.lang || "en";
   const localization: Localization = { ...languages[lang], ...options.strings };
-
   return {
     name: "blog_plugin",
     middlewares: [{

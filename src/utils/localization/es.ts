@@ -1,5 +1,5 @@
-import { Localization } from "../../plugin/blog.ts";
 /* Spanish */
+import { Localization } from "../../plugin/blog.ts";
 export const es: Localization = {
   lang: "es",
   attribution: "Por",

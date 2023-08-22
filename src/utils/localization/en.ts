@@ -1,5 +1,5 @@
-import { Localization } from "../../plugin/blog.ts";
 /* Engish */
+import { Localization } from "../../plugin/blog.ts";
 export const en: Localization = {
   lang: "en",
   attribution: "By",

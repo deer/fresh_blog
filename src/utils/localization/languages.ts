@@ -1,6 +1,22 @@
+/* Localization */
 import { en } from "./en.ts";
 import { es } from "./es.ts";
-import { Localization } from "../../plugin/blog.ts";
+
+export type Languages = "en" | "es" | "de";
+
+export type Localization = {
+  attribution?: string;
+  nextPage?: string;
+  previousPage?: string;
+  nextPost?: string;
+  previousPost?: string;
+  continueReading?: string;
+  noPostsFound?: string;
+  blogTitleEnding?: string;
+  archiveTitleEnding?: string;
+  authorTitleEnding?: string;
+  lang?: Languages;
+};
 
 type Lang = {
   [key: string]: Localization;
