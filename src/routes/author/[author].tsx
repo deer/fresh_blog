@@ -2,6 +2,7 @@ import { Handlers, Head, PageProps } from "../../../deps.ts";
 import { Post } from "../../utils/posts.ts";
 import PostList from "../../components/PostList.tsx";
 import { BlogState } from "../_middleware.ts";
+import { Localization } from "../../plugin/blog.ts";
 
 type AuthorPageProps = {
   posts: Post[];
@@ -18,14 +19,18 @@ export const handler: Handlers<AuthorPageProps, BlogState> = {
   },
 };
 
-export function createAuthorPage(title: string) {
+export function createAuthorPage(title: string, localization: Localization) {
   return function AuthorPage(props: PageProps<AuthorPageProps>) {
     return (
       <>
         <Head>
-          <title>{title} — Author Archive</title>
+          <title>{title}{localization.authorTitleEnding}</title>
         </Head>
-        <PostList posts={props.data.posts} showExcerpt={false} />
+        <PostList
+          posts={props.data.posts}
+          showExcerpt={false}
+          localization={localization}
+        />
       </>
     );
   };

@@ -2,6 +2,7 @@ import { Handlers, Head, PageProps } from "../../../deps.ts";
 import { Post } from "../../utils/posts.ts";
 import PostList from "../../components/PostList.tsx";
 import { BlogState } from "../_middleware.ts";
+import { Localization } from "../../plugin/blog.ts";
 
 type TagPageProps = {
   posts: Post[];
@@ -18,14 +19,18 @@ export const handler: Handlers<TagPageProps, BlogState> = {
   },
 };
 
-export function createTagPage(title: string) {
+export function createTagPage(title: string, localization: Localization) {
   return function TagPage(props: PageProps<TagPageProps>) {
     return (
       <>
         <Head>
-          <title>{title} — Archive</title>
+          <title>{title}{localization.archiveTitleEnding}</title>
         </Head>
-        <PostList posts={props.data.posts} showExcerpt={false} />
+        <PostList
+          posts={props.data.posts}
+          showExcerpt={false}
+          localization={localization}
+        />
       </>
     );
   };

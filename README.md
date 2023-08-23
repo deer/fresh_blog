@@ -40,6 +40,7 @@ following:
 import {
   BlogOptions,
   blogPlugin,
+  Localization,
 } from "https://deno.land/x/fresh_blog@0.0.1/mod.ts";
 ```
 
@@ -58,8 +59,27 @@ const blogOptions: BlogOptions = {
     Contact: "/contact",
     Projects: "/projects",
   },
+  strings: {
+    lang: "en",
+    attribution: "Author:",
+  },
 };
 ```
+
+The `strings` option allows setting of language overrides `lang: "en"`
+
+You can also customize the following strings:
+
+- attribution
+- nextPage
+- previousPage
+- nextPost
+- previousPost
+- continueReading
+- noPostsFound
+- blogTitleEnding
+- archiveTitleEnding
+- authorTitleEnding
 
 There's also an option to configure the `postsPerPage` which defaults to 10.
 

@@ -10,7 +10,8 @@ import { handler as archiveHandler } from "../routes/archive/index.tsx";
 import { createTagPage } from "../routes/archive/[tag].tsx";
 import { handler as tagHandler } from "../routes/archive/[tag].tsx";
 import { handlerBuilder as contextMiddleware } from "../routes/_middleware.ts";
-export type { BlogOptions };
+import { languages, Localization } from "../utils/localization.ts";
+export type { BlogOptions, Localization };
 
 interface BlogOptions {
   title: string;
@@ -19,6 +20,7 @@ interface BlogOptions {
   postsPerPage?: number;
   sources?: Source[];
   useSeparateIndex?: boolean;
+  strings?: Localization | Partial<Localization>;
 }
 
 export type Source = "local" | "notion";
@@ -37,6 +39,9 @@ export function blogPlugin(
       `The specified posts directory '${postsDir}' does not exist.`,
     );
   }
+  /* Set default language */
+  const lang: string = options.strings?.lang || "en";
+  const localization: Localization = { ...languages[lang], ...options.strings };
   return {
     name: "blog_plugin",
     middlewares: [{
@@ -50,7 +55,10 @@ export function blogPlugin(
     }],
     routes: [{
       path: "/blog/[slug]",
-      component: createPostPage(options.title),
+      component: createPostPage(
+        options.title,
+        localization,
+      ),
       handler: blogSlugHandler,
     }, {
       path: "/_app",
@@ -61,19 +69,29 @@ export function blogPlugin(
         postsPerPage,
         options.title,
         options.useSeparateIndex,
+        localization,
       ),
       handler: buildIndexHandler(postsPerPage),
     }, {
       path: "/archive",
-      component: createArchivePage(options.title),
+      component: createArchivePage(
+        options.title,
+        localization,
+      ),
       handler: archiveHandler,
     }, {
       path: "/archive/[tag]",
-      component: createTagPage(options.title),
+      component: createTagPage(
+        options.title,
+        localization,
+      ),
       handler: tagHandler,
     }, {
       path: "/author/[author]",
-      component: createAuthorPage(options.title),
+      component: createAuthorPage(
+        options.title,
+        localization,
+      ),
       handler: authorHandler,
     }],
     islands: {

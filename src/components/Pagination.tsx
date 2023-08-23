@@ -1,9 +1,14 @@
+import { Localization } from "../plugin/blog.ts";
+
 interface PaginationProps {
   page: number;
   totalPages: number;
+  localization: Localization;
 }
 
-export default function Pagination({ page, totalPages }: PaginationProps) {
+export default function Pagination(
+  { page, totalPages, localization }: PaginationProps,
+) {
   const prevPage = page > 1 ? page - 1 : null;
   const nextPage = page < totalPages ? page + 1 : null;
 
@@ -16,7 +21,7 @@ export default function Pagination({ page, totalPages }: PaginationProps) {
             href={`?page=${prevPage}`}
             className="hover:underline"
           >
-            ← Previous Page
+            {localization.previousPage}
           </a>
         )
         : <div></div>}
@@ -27,7 +32,7 @@ export default function Pagination({ page, totalPages }: PaginationProps) {
             href={`?page=${nextPage}`}
             className="hover:underline"
           >
-            Next Page →
+            {localization.nextPage}
           </a>
         )
         : <div></div>}
