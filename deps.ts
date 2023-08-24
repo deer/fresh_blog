@@ -10,7 +10,7 @@ export {
   createHandler,
   Status,
 } from "https://raw.githubusercontent.com/deer/fresh/feat_plugin_islands/server.ts";
-export { Head } from "https://raw.githubusercontent.com/deer/fresh/feat_plugin_islands/runtime.ts";
+export { Head } from "$fresh/runtime.ts";
 export {
   dirname,
   extname,
