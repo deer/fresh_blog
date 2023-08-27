@@ -5,11 +5,8 @@ export type {
   MiddlewareHandlerContext,
   PageProps,
   Plugin,
-} from "https://raw.githubusercontent.com/deer/fresh/feat_plugin_islands/server.ts";
-export {
-  createHandler,
-  Status,
-} from "https://raw.githubusercontent.com/deer/fresh/feat_plugin_islands/server.ts";
+} from "$fresh/server.ts";
+export { createHandler, Status } from "$fresh/server.ts";
 export { Head } from "$fresh/runtime.ts";
 export {
   dirname,
