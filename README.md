@@ -66,23 +66,6 @@ const blogOptions: BlogOptions = {
 };
 ```
 
-The `strings` option allows setting of language overrides `lang: "en"`
-
-You can also customize the following strings:
-
-- attribution
-- nextPage
-- previousPage
-- nextPost
-- previousPost
-- continueReading
-- noPostsFound
-- blogTitleEnding
-- archiveTitleEnding
-- authorTitleEnding
-
-There's also an option to configure the `postsPerPage` which defaults to 10.
-
 Then change your `start` invocation like so:
 
 ```diff
@@ -114,6 +97,73 @@ tree
 ```
 
 Note how I'm not providing any index file -- that comes from the plugin.
+
+### Separate Index
+
+Don't want the blog listing to be the index page? No problem: simply set your
+`BlogOptions` object to have `separateIndex` set to true. You'll need to provide
+your own `index.tsx` route in order to avoid errors now. The blog get shunted
+into a /blog/ route as a result.
+
+### Posts Per Page
+
+There's also an option to configure the `postsPerPage` which defaults to 10.
+
+### Localization and String Overrides
+
+You don't like some of the wording built into the blog? Simply provide your own
+`strings` object in the config:
+
+```tsx
+strings: {
+  lang: "en",
+  attribution: "Author:",
+},
+```
+
+Note: we provide some built in localizations as well (currently just EN and ES)
+for you. Feel free to use one of these as a starting point, and then override
+any of the following strings as you see fit:
+
+- attribution
+- nextPage
+- previousPage
+- nextPost
+- previousPost
+- continueReading
+- noPostsFound
+- blogTitleEnding
+- archiveTitleEnding
+- authorTitleEnding
+
+### Notion as a CMS
+
+If you want to use Notion as a CMS, then you'll need to leverage the `sources`
+property in your config. It's currently typed like this:
+
+```ts
+export type Source = "local" | "notion";
+```
+
+You can have both local and notion based posts. In order for things to work,
+you'll need to create a database that has the following columns:
+
+- slug
+- Date
+- Excerpt
+- Description
+- Draft
+- Author
+- Tags
+
+The actual content needs to (currently) be in a markdown code block within the
+page. The content in the code block is the only block which will get pulled into
+the post.
+
+You also need to configure the following env variables:
+
+- BLOG_NOTION_API_KEY
+- BLOG_NOTION_DATABASE_ID
 
 ### Post Details
 
