@@ -1,5 +1,5 @@
-import { $, assertEquals, assertStringIncludes } from "./test_deps.ts";
-import { startFreshServer } from "./test_utils.ts";
+import { $, assertEquals } from "./test_deps.ts";
+// import { startFreshServer } from "./test_utils.ts";
 
 Deno.test({
   name: "happy path init",
