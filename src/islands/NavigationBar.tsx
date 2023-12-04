@@ -1,5 +1,5 @@
 import { BlogOptions } from "../plugin/blog.ts";
-import { useSignal } from "https://esm.sh/*@preact/signals@1.1.3";
+import { useSignal } from "https://esm.sh/*@preact/signals@1.2.2";
 
 export default function NavigationBar(
   props: { active: string; class?: string; options: BlogOptions },

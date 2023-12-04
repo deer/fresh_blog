@@ -2,7 +2,7 @@ import {
   assertEquals,
   assertExists,
 } from "https://deno.land/std@0.195.0/assert/mod.ts";
-import blogConfig from "./localization_fixture/local.config.ts";
+import blogConfig from "./localization_fixture/blog.config.ts";
 import { languages } from "../src/utils/localization.ts";
 import { createHandler } from "../deps.ts";
 import { assertStringIncludes } from "./test_deps.ts";
