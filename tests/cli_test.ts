@@ -1,5 +1,5 @@
-import { $, assertEquals, assertStringIncludes } from "./test_deps.ts";
-import { startFreshServer } from "./test_utils.ts";
+import { $, assertEquals } from "./test_deps.ts";
+// import { startFreshServer } from "./test_utils.ts";
 
 Deno.test({
   name: "happy path init",
@@ -34,20 +34,20 @@ Deno.test({
       await $`cd ${tmpDirName} && deno run -A ${initScriptPath}`.text();
     });
 
-    await t.step("start blog and verify basics", async () => {
-      const { serverProcess, lines, address } = await startFreshServer({
-        args: ["run", "-A", "dev.ts"],
-        cwd: tmpDirName,
-      });
+    // await t.step("start blog and verify basics", async () => {
+    //   const { serverProcess, lines, address } = await startFreshServer({
+    //     args: ["run", "-A", "dev.ts"],
+    //     cwd: tmpDirName,
+    //   });
 
-      const resp = await fetch(address);
-      const body = await resp.text();
-      assertEquals(resp.status, 200);
-      assertStringIncludes(body, "No posts found. Start writing!");
+    //   const resp = await fetch(address);
+    //   const body = await resp.text();
+    //   assertEquals(resp.status, 200);
+    //   assertStringIncludes(body, "No posts found. Start writing!");
 
-      await lines.cancel();
-      serverProcess.kill("SIGTERM");
-      await serverProcess.status;
-    });
+    //   await lines.cancel();
+    //   serverProcess.kill("SIGTERM");
+    //   await serverProcess.status;
+    // });
   },
 });

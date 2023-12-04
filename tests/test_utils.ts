@@ -70,7 +70,7 @@ export async function startFreshServer(options: Deno.CommandOptions) {
 export async function startFreshServerExpectErrors(
   options: Deno.CommandOptions,
 ) {
-  const { serverProcess, address } = await spawnServer(options, true);
+  const { serverProcess, lines, address } = await spawnServer(options, true);
 
   if (address) {
     throw Error("Server started correctly");
@@ -86,6 +86,16 @@ export async function startFreshServerExpectErrors(
   for await (const line of errorLines) {
     output += line + "\n";
   }
+
+  try {
+    serverProcess.kill("SIGTERM");
+  } catch {
+    // ignore the error, this may throw on windows if the process has already
+    // exited
+  }
+  await serverProcess.status;
+  for await (const _ of lines) { /* noop */ }
+
   return output;
 }
 

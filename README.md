@@ -163,7 +163,7 @@ the post.
 You also need to configure the following env variables:
 
 - BLOG_NOTION_API_KEY
-- BLOG_NOTION_DATABASE_ID
+- BLOG_NOTION_DATABASE_ID $$
 
 ### Post Details
 

@@ -4,10 +4,10 @@ import {
   assertNotEquals,
   assertStringIncludes,
 } from "./test_deps.ts";
-import { createHandler, Status } from "../deps.ts";
+import { createHandler } from "../deps.ts";
 import manifest from "./fixture/fresh.gen.ts";
 import { BlogOptions, blogPlugin } from "../src/plugin/blog.ts";
-import { DOMParser, Element } from "./test_deps.ts";
+import { DOMParser, Element, STATUS_CODE } from "./test_deps.ts";
 import { assertTitle } from "./test_utils.ts";
 
 export function parameterizedTests(config: BlogOptions) {
@@ -182,7 +182,7 @@ export function parameterizedTests(config: BlogOptions) {
     const resp = await handler(
       new Request("http://127.0.0.1/favicon.ico"),
     );
-    assertEquals(resp.status, Status.OK);
+    assertEquals(resp.status, STATUS_CODE.OK);
     assertEquals(resp.headers.get("content-type"), "image/vnd.microsoft.icon");
     const body = await resp.text();
     assert(!body.includes("Demo Blog"));
@@ -255,7 +255,7 @@ export function parameterizedTests(config: BlogOptions) {
       new Request("http://127.0.0.1/?page=3"),
     );
 
-    assertEquals(resp.status, 404);
+    assertEquals(resp.status, STATUS_CODE.NotFound);
   });
 
   Deno.test("only one page means no next or previous links", async () => {
