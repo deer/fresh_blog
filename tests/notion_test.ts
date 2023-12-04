@@ -8,9 +8,7 @@ import { Context } from "../src/routes/_middleware.ts";
 
 import "https://deno.land/std@0.195.0/dotenv/load.ts";
 
-Deno.test("notion tests", () => {
-  parameterizedTests(notionConfig);
-});
+parameterizedTests(notionConfig);
 
 Deno.test.ignore(
   "throws error when BLOG_NOTION_API_KEY is not set",
