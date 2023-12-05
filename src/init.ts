@@ -45,7 +45,7 @@ const blogOptions: BlogOptions = {
   }
 
   configContent =
-    `import { BlogOptions, blogPlugin } from "https://deno.land/x/fresh_blog/mod.ts";
+    `import { BlogOptions, blogPlugin } from "https://deno.land/x/fresh_blog@0.0.4/mod.ts";
 ${blogOptions}
 ${configContent}`;
 
