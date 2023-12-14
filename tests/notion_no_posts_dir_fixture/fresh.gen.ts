@@ -2,10 +2,12 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import { type Manifest } from "$fresh/server.ts";
+
 const manifest = {
   routes: {},
   islands: {},
   baseUrl: import.meta.url,
-};
+} satisfies Manifest;
 
 export default manifest;

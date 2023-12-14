@@ -39,8 +39,8 @@ const blogOptions: BlogOptions = {
     );
   } else {
     configContent = configContent.replace(
-      `plugins: [twindPlugin(twindConfig)],`,
-      `plugins: [twindPlugin(twindConfig), ${pluginCode}],`,
+      `plugins: [tailwind()],`,
+      `plugins: [tailwind(), ${pluginCode}],`,
     );
   }
 
@@ -89,7 +89,7 @@ async function modifyDenoJson() {
     return;
   }
 
-  denoJson.imports["$fresh/"] = "https://deno.land/x/fresh@1.6.0/";
+  denoJson.imports["$fresh/"] = "https://deno.land/x/fresh@1.6.1/";
 
   const denoJsonContent = JSON.stringify(denoJson, null, 2) + "\n";
   await Deno.writeTextFile(DENO_JSON_PATH, denoJsonContent);

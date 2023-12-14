@@ -17,27 +17,35 @@ export default function NavigationBar(
           onClick={() => isOpen.value = !isOpen.value}
         >
           <span
-            class={`block h-1 w-6 bg-black ${
-              isOpen.value ? "transform rotate-45" : ""
+            class={`${
+              isOpen.value
+                ? "block h-1 w-6 bg-black transform rotate-45"
+                : "block h-1 w-6 bg-black"
             }`}
           >
           </span>
           <span
-            class={`block h-1 w-6 bg-black my-1 ${
-              isOpen.value ? "opacity-0" : ""
+            class={`${
+              isOpen.value
+                ? "block h-1 w-6 bg-black my-1 opacity-0"
+                : "block h-1 w-6 bg-black my-1"
             }`}
           >
           </span>
           <span
-            class={`block h-1 w-6 bg-black ${
-              isOpen.value ? "transform -rotate-45" : ""
+            class={`${
+              isOpen.value
+                ? "block h-1 w-6 bg-black transform -rotate-45"
+                : "block h-1 w-6 bg-black"
             }`}
           >
           </span>
         </label>
         <nav
-          class={`w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative ${
-            isOpen.value ? "max-h-screen bg-gray-300" : "max-h-0 lg:max-h-full"
+          class={`${
+            isOpen.value
+              ? "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-screen bg-gray-300"
+              : "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-0 lg:max-h-full"
           }`}
         >
           <ul class="flex flex-col lg:flex-row justify-center items-center gap-4 mx-4 my-6 flex-wrap">
@@ -45,10 +53,14 @@ export default function NavigationBar(
               <li key={key}>
                 <a
                   href={value}
-                  class={`p-2 block ${
-                    isHome ? "text-black-900" : "text-black-600"
-                  } hover:underline ${
-                    props.active == value ? "font-bold" : ""
+                  class={`p-2 block hover:underline ${
+                    isHome
+                      ? props.active == value
+                        ? "text-black-900 font-bold"
+                        : "text-black-900"
+                      : props.active == value
+                      ? "text-black-600 font-bold"
+                      : "text-black-600"
                   }`}
                 >
                   {key}

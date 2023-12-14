@@ -6,9 +6,9 @@ export default function PostSummary(
 ) {
   const { post, showExcerpt } = props;
   return (
-    <div class="py-4 border(t gray-200)" id={`post:${post.slug}`}>
+    <div class="py-4 border-t border-gray-200" id={`post:${post.slug}`}>
       <a class="sm:col-span-2" href={`/blog/${post.slug}`}>
-        <h3 class="text(3xl gray-900) font-bold">
+        <h3 class="text-3xl text-gray-900 font-bold">
           {post.title}
         </h3>
       </a>

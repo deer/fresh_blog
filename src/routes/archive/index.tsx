@@ -30,7 +30,7 @@ export function createArchivePage(title: string, localization: Localization) {
           <title>{title}{localization.archiveTitleEnding}</title>
         </Head>
         <div>
-          <div className="flex space-x-2 mb-4">
+          <div class="flex space-x-2 mb-4">
             {allTags.some((x) => x != null) && allTags.map((tag, index) => (
               <a
                 id={`tag-link-${tag}`}

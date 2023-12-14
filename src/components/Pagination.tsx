@@ -13,13 +13,13 @@ export default function Pagination(
   const nextPage = page < totalPages ? page + 1 : null;
 
   return (
-    <nav className="flex justify-between">
+    <nav class="flex justify-between">
       {prevPage
         ? (
           <a
             id="previous-page"
             href={`?page=${prevPage}`}
-            className="hover:underline"
+            class="hover:underline"
           >
             {localization.previousPage}
           </a>
@@ -30,7 +30,7 @@ export default function Pagination(
           <a
             id="next-page"
             href={`?page=${nextPage}`}
-            className="hover:underline"
+            class="hover:underline"
           >
             {localization.nextPage}
           </a>
