@@ -5,7 +5,7 @@ Deno.test({
   name: "navbar test with large browser",
   async fn(t) {
     await withPage(
-      "./tests/responsive_navbar_fixture/main.ts",
+      "./tests/responsive_navbar_fixture/dev.ts",
       async (page, address) => {
         // Setup
         await page.goto(`${address}`, { waitUntil: "load" });
@@ -36,7 +36,7 @@ Deno.test({
   name: "navbar test with small browser",
   async fn(t) {
     await withPage(
-      "./tests/responsive_navbar_fixture/main.ts",
+      "./tests/responsive_navbar_fixture/dev.ts",
       async (page, address) => {
         await page.goto(`${address}`, { waitUntil: "load" });
         const navbar = await page.waitForSelector("nav");
@@ -51,20 +51,18 @@ Deno.test({
           assertEquals(itemsHidden, true);
         });
 
-        // await t.step(
-        //   "navbar items should be visible after clicking hamburger menu",
-        //   async () => {
-        //     // console.log(await page.content());
-        //     await delay(1000);
-        //     await page.click("label");
-        //     const itemsVisible = await page.$$eval(
-        //       "nav > ul > li > a",
-        //       (elements) =>
-        //         elements.every((e) => getComputedStyle(e).display !== "none"),
-        //     );
-        //     assertEquals(itemsVisible, true);
-        //   },
-        // );
+        await t.step(
+          "navbar items should be visible after clicking hamburger menu",
+          async () => {
+            await page.click("label");
+            const itemsVisible = await page.$$eval(
+              "nav > ul > li > a",
+              (elements) =>
+                elements.every((e) => getComputedStyle(e).display !== "none"),
+            );
+            assertEquals(itemsVisible, true);
+          },
+        );
       },
       { args: ["--window-size=375,812"] },
     );
