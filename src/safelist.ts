@@ -1,4 +1,6 @@
 export const safelist = [
+  "list-disc",
+  "list-decimal",
   "max-w-screen-md",
   "px-4",
   "pt-16",

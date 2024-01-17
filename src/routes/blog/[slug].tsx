@@ -5,6 +5,7 @@ import {
   Head,
   PageProps,
   render,
+  Renderer,
 } from "../../../deps.ts";
 import { Localization } from "../../plugin/blog.ts";
 import { Post } from "../../utils/posts.ts";
@@ -40,7 +41,20 @@ export const handler: Handlers<Post, BlogState> = {
 export function createPostPage(title: string, localization: Localization) {
   return function PostPage(props: PageProps<Post>) {
     const post = props.data;
-    const html = render(post.content!);
+    class CustomRenderer extends Renderer {
+      list(body: string, ordered: boolean): string {
+        const type = ordered ? "list-decimal" : "list-disc";
+        const tag = ordered ? "ol" : "ul";
+        return `<${tag} class="${type}">${body}</${tag}>`;
+      }
+    }
+    const html = render(post.content!, {
+      renderer: new CustomRenderer({}),
+      allowedClasses: {
+        ul: ["list-disc"],
+        ol: ["list-decimal"],
+      }
+    });
     return (
       <>
         <Head>
