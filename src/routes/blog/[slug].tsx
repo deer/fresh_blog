@@ -53,7 +53,7 @@ export function createPostPage(title: string, localization: Localization) {
       allowedClasses: {
         ul: ["list-disc"],
         ol: ["list-decimal"],
-      }
+      },
     });
     return (
       <>
