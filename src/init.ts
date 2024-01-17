@@ -89,7 +89,7 @@ async function modifyDenoJson() {
     return;
   }
 
-  denoJson.imports["$fresh/"] = "https://deno.land/x/fresh@1.6.1/";
+  denoJson.imports["$fresh/"] = "https://deno.land/x/fresh@1.6.3/";
 
   const denoJsonContent = JSON.stringify(denoJson, null, 2) + "\n";
   await Deno.writeTextFile(DENO_JSON_PATH, denoJsonContent);

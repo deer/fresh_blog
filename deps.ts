@@ -15,7 +15,7 @@ export {
 } from "https://deno.land/std@0.208.0/path/mod.ts";
 export * as JSONC from "https://deno.land/std@0.208.0/jsonc/mod.ts";
 export { extract } from "https://deno.land/std@0.208.0/front_matter/yaml.ts";
-export { CSS, render } from "https://deno.land/x/gfm@0.2.5/mod.ts";
+export { CSS, render, Renderer } from "https://deno.land/x/gfm@0.5.0/mod.ts";
 export { load } from "https://deno.land/std@0.208.0/dotenv/mod.ts";
 export { existsSync } from "https://deno.land/std@0.208.0/fs/mod.ts";
 export { Client } from "https://deno.land/x/notion_sdk@v2.2.3/src/mod.ts";
