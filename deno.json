@@ -5,11 +5,11 @@
     "jsxImportSource": "preact"
   },
   "tasks": {
-    "test": "deno test -A --parallel",
-    "fixture": "deno run -A --watch=static/,routes/ tests/fixture/dev.ts",
-    "check": "deno fmt --check && deno lint",
     "check:types": "deno check **/*.ts && deno check **/*.tsx",
-    "ok": "deno fmt --check && deno lint && deno task check:types && deno task test"
+    "coverage": "rm -rf coverage && deno test -A --parallel --coverage && deno coverage --html",
+    "fixture": "deno run -A --watch=static/,routes/ tests/fixture/dev.ts",
+    "ok": "deno fmt --check && deno lint && deno task check:types && deno task test",
+    "test": "deno test -A --parallel"
   },
   "imports": {
     "$fresh/": "https://raw.githubusercontent.com/denoland/fresh/844370cadd1ed28fd76f796c2afc1e2411bfc425/",

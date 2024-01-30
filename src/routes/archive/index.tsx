@@ -2,7 +2,7 @@ import { Handlers, Head, PageProps } from "../../../deps.ts";
 import { Post } from "../../utils/posts.ts";
 import PostList from "../../components/PostList.tsx";
 import { BlogState } from "../_middleware.ts";
-import { Localization } from "../../plugin/blog.ts";
+import { Localization, PageOptions } from "../../plugin/blog.ts";
 
 export const handler: Handlers<Post[], BlogState> = {
   GET(_req, ctx) {
@@ -11,7 +11,14 @@ export const handler: Handlers<Post[], BlogState> = {
   },
 };
 
-export function createArchivePage(title: string, localization: Localization) {
+export function createArchivePage(
+  title: string,
+  localization: Localization,
+  options?: PageOptions,
+) {
+  const finalTitle = options?.suppressEnding
+    ? (options.titleOverride || title)
+    : `${options?.titleOverride || title}${localization.archiveTitleEnding}`;
   return function ArchivePage(props: PageProps<Post[]>) {
     const allTags = Array.from(
       new Set(
@@ -27,7 +34,7 @@ export function createArchivePage(title: string, localization: Localization) {
     return (
       <>
         <Head>
-          <title>{title}{localization.archiveTitleEnding}</title>
+          <title>{finalTitle}</title>
         </Head>
         <div>
           <div class="flex space-x-2 mb-4">

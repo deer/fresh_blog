@@ -29,7 +29,7 @@ export async function withPageName(
   options?: ChromeArgOptions,
 ) {
   const { lines, serverProcess, address } = await startFreshServer({
-    args: ["run", "-A", "--unstable", name],
+    args: ["run", "-A", name],
   });
 
   try {

@@ -10,4 +10,4 @@ export default {
     Other: "/other",
   },
   rootPath: import.meta.url,
-} as BlogOptions;
+} satisfies BlogOptions;

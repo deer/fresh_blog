@@ -8,4 +8,4 @@ export default {
   rootPath: import.meta.url,
   postsPerPage: 5,
   sources: ["notion"],
-} as BlogOptions;
+} satisfies BlogOptions;

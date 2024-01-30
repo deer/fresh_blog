@@ -9,4 +9,4 @@ export default {
   rootPath: import.meta.url,
   postsPerPage: 5,
   useSeparateIndex: true,
-} as BlogOptions;
+} satisfies BlogOptions;
