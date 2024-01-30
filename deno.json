@@ -12,7 +12,7 @@
     "ok": "deno fmt --check && deno lint && deno task check:types && deno task test"
   },
   "imports": {
-    "$fresh/": "https://deno.land/x/fresh@1.6.3/",
+    "$fresh/": "https://raw.githubusercontent.com/deer/fresh/2159_plugin_routes_tailwind/",
     "tailwindcss": "npm:tailwindcss@3.3.5",
     "preact": "https://esm.sh/preact@10.19.2",
     "preact/": "https://esm.sh/preact@10.19.2/",

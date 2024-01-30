@@ -21,7 +21,18 @@ interface BlogOptions {
   sources?: Source[];
   useSeparateIndex?: boolean;
   strings?: Localization | Partial<Localization>;
+  comments?: DisqusOptions;
 }
+
+interface CommentOptions {
+  source: CommentSource;
+}
+
+export interface DisqusOptions extends CommentOptions {
+  shortname: string;
+}
+
+export type CommentSource = "disqus";
 
 export type Source = "local" | "notion";
 
@@ -44,6 +55,8 @@ export function blogPlugin(
   const localization: Localization = { ...languages[lang], ...options.strings };
   return {
     name: "blog_plugin",
+    location: import.meta.url,
+    projectLocation: new URL("../../", import.meta.url).href,
     middlewares: [{
       middleware: {
         handler: contextMiddleware(
@@ -58,6 +71,7 @@ export function blogPlugin(
       component: createPostPage(
         options.title,
         localization,
+        options.comments,
       ),
       handler: blogSlugHandler,
     }, {
@@ -96,7 +110,7 @@ export function blogPlugin(
     }],
     islands: {
       baseLocation: import.meta.url,
-      paths: ["../islands/NavigationBar.tsx"],
+      paths: ["../islands/NavigationBar.tsx", "../islands/Disqus.tsx"],
     },
   };
 }

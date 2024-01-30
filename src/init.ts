@@ -45,7 +45,7 @@ const blogOptions: BlogOptions = {
   }
 
   configContent =
-    `import { BlogOptions, blogPlugin } from "https://deno.land/x/fresh_blog@0.0.4/mod.ts";
+    `import { BlogOptions, blogPlugin } from "https://deno.land/x/fresh_blog@0.0.6/mod.ts";
 ${blogOptions}
 ${configContent}`;
 
@@ -89,7 +89,8 @@ async function modifyDenoJson() {
     return;
   }
 
-  denoJson.imports["$fresh/"] = "https://deno.land/x/fresh@1.6.3/";
+  denoJson.imports["$fresh/"] =
+    "https://raw.githubusercontent.com/deer/fresh/2159_plugin_routes_tailwind/";
 
   const denoJsonContent = JSON.stringify(denoJson, null, 2) + "\n";
   await Deno.writeTextFile(DENO_JSON_PATH, denoJsonContent);
