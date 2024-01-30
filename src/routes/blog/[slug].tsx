@@ -7,10 +7,10 @@ import {
   render,
   Renderer,
 } from "../../../deps.ts";
-import { Localization } from "../../plugin/blog.ts";
+import { DisqusOptions, Localization } from "../../plugin/blog.ts";
 import { Post } from "../../utils/posts.ts";
 import { BlogState } from "../_middleware.ts";
-// import Disqus from "../../islands/Disqus.tsx";
+import Disqus from "../../islands/Disqus.tsx";
 
 export const handler: Handlers<Post, BlogState> = {
   async GET(_req, ctx) {
@@ -38,7 +38,11 @@ export const handler: Handlers<Post, BlogState> = {
   },
 };
 
-export function createPostPage(title: string, localization: Localization) {
+export function createPostPage(
+  title: string,
+  localization: Localization,
+  comments?: DisqusOptions,
+) {
   return function PostPage(props: PageProps<Post>) {
     const post = props.data;
     class CustomRenderer extends Renderer {
@@ -75,7 +79,13 @@ export function createPostPage(title: string, localization: Localization) {
           class="mt-8 markdown-body"
           dangerouslySetInnerHTML={{ __html: html }}
         />
-        {/* <Disqus title={post.title} identifier={post.slug} /> */}
+        {comments && comments.source === "disqus" && (
+          <Disqus
+            title={post.title}
+            identifier={post.slug}
+            shortname={(comments as DisqusOptions).shortname}
+          />
+        )}
         <nav class="flex mt-8">
           {post.prev
             ? <a href={`/blog/${post.prev}`}>{localization.previousPost}</a>

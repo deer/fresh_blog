@@ -45,7 +45,7 @@ const blogOptions: BlogOptions = {
   }
 
   configContent =
-    `import { BlogOptions, blogPlugin } from "https://deno.land/x/fresh_blog@0.0.4/mod.ts";
+    `import { BlogOptions, blogPlugin } from "https://deno.land/x/fresh_blog@0.0.6/mod.ts";
 ${blogOptions}
 ${configContent}`;
 
@@ -89,7 +89,8 @@ async function modifyDenoJson() {
     return;
   }
 
-  denoJson.imports["$fresh/"] = "https://deno.land/x/fresh@1.6.3/";
+  denoJson.imports["$fresh/"] =
+    "https://raw.githubusercontent.com/denoland/fresh/844370cadd1ed28fd76f796c2afc1e2411bfc425/";
 
   const denoJsonContent = JSON.stringify(denoJson, null, 2) + "\n";
   await Deno.writeTextFile(DENO_JSON_PATH, denoJsonContent);
