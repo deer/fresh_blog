@@ -90,7 +90,7 @@ async function modifyDenoJson() {
   }
 
   denoJson.imports["$fresh/"] =
-    "https://raw.githubusercontent.com/deer/fresh/2159_plugin_routes_tailwind/";
+    "https://raw.githubusercontent.com/denoland/fresh/844370cadd1ed28fd76f796c2afc1e2411bfc425/";
 
   const denoJsonContent = JSON.stringify(denoJson, null, 2) + "\n";
   await Deno.writeTextFile(DENO_JSON_PATH, denoJsonContent);
