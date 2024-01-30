@@ -12,4 +12,4 @@ export default {
     lang: "en",
     attribution: "Post By:",
   },
-} as BlogOptions;
+} satisfies BlogOptions;

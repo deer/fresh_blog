@@ -4,6 +4,4 @@
 .env.test.local
 .env.production.local
 .env.local
-cov_profile
-cov.lcov
-cov
+coverage

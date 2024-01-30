@@ -36,7 +36,7 @@ jobs:
           restore-keys: chrome-1022525-${{ runner.os }}-
 
       - name: Install Chromium (Unix)
-        run: PUPPETEER_PRODUCT=chrome deno run -A --unstable https://deno.land/x/puppeteer@16.2.0/install.ts
+        run: PUPPETEER_PRODUCT=chrome deno run -A https://deno.land/x/puppeteer@16.2.0/install.ts
 
       - name: Run tests
         run: deno test -A --coverage=cov/

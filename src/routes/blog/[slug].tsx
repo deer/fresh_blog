@@ -7,7 +7,7 @@ import {
   render,
   Renderer,
 } from "../../../deps.ts";
-import { DisqusOptions, Localization } from "../../plugin/blog.ts";
+import { DisqusOptions, Localization, PageOptions } from "../../plugin/blog.ts";
 import { Post } from "../../utils/posts.ts";
 import { BlogState } from "../_middleware.ts";
 import Disqus from "../../islands/Disqus.tsx";
@@ -42,6 +42,7 @@ export function createPostPage(
   title: string,
   localization: Localization,
   comments?: DisqusOptions,
+  options?: PageOptions,
 ) {
   return function PostPage(props: PageProps<Post>) {
     const post = props.data;
@@ -62,7 +63,7 @@ export function createPostPage(
     return (
       <>
         <Head>
-          <title>{title} — {post.title}</title>
+          <title>{options?.titleOverride || title} — {post.title}</title>
           <style dangerouslySetInnerHTML={{ __html: CSS }} />
         </Head>
         <br />

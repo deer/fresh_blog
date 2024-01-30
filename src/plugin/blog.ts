@@ -22,7 +22,22 @@ interface BlogOptions {
   useSeparateIndex?: boolean;
   strings?: Localization | Partial<Localization>;
   comments?: DisqusOptions;
+  pageOptions?: { [K in Pages]?: PageOptions };
 }
+
+export type Pages =
+  | "blog"
+  | "blog/[slug]"
+  | "_app"
+  | "archive"
+  | "archive/[tag]"
+  | "index"
+  | "author/[author]";
+
+export type PageOptions = {
+  titleOverride?: string;
+  suppressEnding?: boolean; // not every page has an ending
+};
 
 interface CommentOptions {
   source: CommentSource;
@@ -72,6 +87,7 @@ export function blogPlugin(
         options.title,
         localization,
         options.comments,
+        options?.pageOptions?.["blog/[slug]"],
       ),
       handler: blogSlugHandler,
     }, {
@@ -84,6 +100,7 @@ export function blogPlugin(
         options.title,
         options.useSeparateIndex,
         localization,
+        options?.pageOptions?.["index"],
       ),
       handler: buildIndexHandler(postsPerPage),
     }, {
@@ -91,6 +108,7 @@ export function blogPlugin(
       component: createArchivePage(
         options.title,
         localization,
+        options?.pageOptions?.["archive"],
       ),
       handler: archiveHandler,
     }, {
@@ -98,6 +116,7 @@ export function blogPlugin(
       component: createTagPage(
         options.title,
         localization,
+        options?.pageOptions?.["archive/[tag]"],
       ),
       handler: tagHandler,
     }, {
@@ -105,6 +124,7 @@ export function blogPlugin(
       component: createAuthorPage(
         options.title,
         localization,
+        options?.pageOptions?.["author/[author]"],
       ),
       handler: authorHandler,
     }],

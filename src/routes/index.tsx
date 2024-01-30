@@ -1,7 +1,7 @@
 import { Handlers, Head, PageProps } from "../../deps.ts";
 import Pagination from "../components/Pagination.tsx";
 import PostList from "../components/PostList.tsx";
-import { Localization } from "../plugin/blog.ts";
+import { Localization, PageOptions } from "../plugin/blog.ts";
 import { Post } from "../utils/posts.ts";
 import { BlogState } from "./_middleware.ts";
 
@@ -39,6 +39,7 @@ export function createBlogIndexPage(
   title: string,
   useSeparateIndex: boolean | undefined,
   localization: Localization,
+  options?: PageOptions,
 ) {
   if (useSeparateIndex) {
     title += localization.blogTitleEnding;
@@ -54,7 +55,7 @@ export function createBlogIndexPage(
     return (
       <>
         <Head>
-          <title>{title}</title>
+          <title>{options?.titleOverride || title}</title>
         </Head>
         <div>
           <PostList
