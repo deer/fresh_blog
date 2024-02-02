@@ -47,6 +47,7 @@ export async function withPageName(
       await fn(page, address);
     } catch (err) {
       console.error("Error in test function:", err);
+      throw err;
     } finally {
       await browser.close();
     }

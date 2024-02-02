@@ -113,7 +113,9 @@ export function parameterizedTests(config: BlogOptions) {
     });
 
     await t.step("archive page has alphabetically sorted links", () => {
-      const tagLinks = Array.from(doc.querySelectorAll('a[id^="tag-link-"]'));
+      const tagLinks = Array.from(
+        doc.querySelectorAll('#allTags a[id^="tag-link-"]'),
+      );
       const tags = tagLinks.map((link) => link.textContent);
       const sortedTags = [...tags].sort();
       assertEquals(tags, sortedTags);

@@ -2,12 +2,16 @@ import { BlogOptions } from "../plugin/blog.ts";
 import NavigationBar from "../islands/NavigationBar.tsx";
 
 export default function Header(
-  props: { options: BlogOptions; active: string },
+  props: { options: BlogOptions },
 ) {
-  const isHome = props.active == "/";
   return (
-    <div class="pb-16">
-      <NavigationBar active={props.active} options={props.options} />
-    </div>
+    <header class="flex items-center justify-between pt-10 border-b mb-4 pb-4">
+      <h1>
+        <a href="/" class="text-3xl font-bold">
+          {props.options.title}
+        </a>
+      </h1>
+      <NavigationBar options={props.options} />
+    </header>
   );
 }

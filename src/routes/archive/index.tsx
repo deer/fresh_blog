@@ -3,6 +3,8 @@ import { Post } from "../../utils/posts.ts";
 import PostList from "../../components/PostList.tsx";
 import { BlogState } from "../_middleware.ts";
 import { Localization, PageOptions } from "../../plugin/blog.ts";
+import TagLink from "../../components/TagLink.tsx";
+import Tags from "../../components/Tags.tsx";
 
 export const handler: Handlers<Post[], BlogState> = {
   GET(_req, ctx) {
@@ -36,18 +38,8 @@ export function createArchivePage(
         <Head>
           <title>{finalTitle}</title>
         </Head>
-        <div>
-          <div class="flex space-x-2 mb-4">
-            {allTags.some((x) => x != null) && allTags.map((tag, index) => (
-              <a
-                id={`tag-link-${tag}`}
-                href={`archive/${tag}`}
-                class="border border-gray-300 text-gray-500 py-1 px-2 rounded inline-block hover:bg-gray-300"
-              >
-                {tag}
-              </a>
-            ))}
-          </div>
+        <div class="w-full">
+          <Tags tags={allTags} id="allTags" />
           <PostList
             posts={props.data}
             showExcerpt={false}

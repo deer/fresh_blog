@@ -130,7 +130,11 @@ export function blogPlugin(
     }],
     islands: {
       baseLocation: import.meta.url,
-      paths: ["../islands/NavigationBar.tsx", "../islands/Disqus.tsx"],
+      paths: [
+        "../islands/NavigationBar.tsx",
+        "../islands/Disqus.tsx",
+        "../islands/ThemeToggle.tsx",
+      ],
     },
   };
 }
