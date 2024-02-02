@@ -1,5 +1,5 @@
 import { BlogOptions } from "../plugin/blog.ts";
-import { useSignal } from "https://esm.sh/*@preact/signals@1.2.2";
+import { useSignal } from "@preact/signals";
 import ThemeToggle from "./ThemeToggle.tsx";
 
 export default function NavigationBar(
@@ -9,7 +9,7 @@ export default function NavigationBar(
   return (
     <div>
       <label
-        class="lg:hidden cursor-pointer z-20"
+        class="lg:hidden cursor-pointer z-10 relative"
         onClick={() => isOpen.value = !isOpen.value}
       >
         <span
@@ -42,8 +42,8 @@ export default function NavigationBar(
         aria-labelledby="primary-navigation"
         class={`${
           isOpen.value
-            ? "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-screen bg-gray-300 -z-10 lg:z-0"
-            : "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-0 lg:max-h-full -z-10 lg:z-0"
+            ? "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-screen bg-gray-300"
+            : "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-0 lg:max-h-full"
         }`}
       >
         <ul class="flex flex-col lg:flex-row justify-center items-center gap-4 mx-0 flex-wrap">
