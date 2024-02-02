@@ -28,6 +28,9 @@ jobs:
       - name: Run linter
         run: deno lint
 
+      - name: Check types
+        run: deno task check:types
+
       - name: Cache Chrome (Linux)
         uses: actions/cache@v3
         with:
@@ -39,7 +42,7 @@ jobs:
         run: PUPPETEER_PRODUCT=chrome deno run -A https://deno.land/x/puppeteer@16.2.0/install.ts
 
       - name: Run tests
-        run: deno test -A --coverage=cov/
+        run: deno test -A --no-check --coverage=cov/
         env:
           BLOG_NOTION_API_KEY: ${{ secrets.BLOG_NOTION_API_KEY }}
           BLOG_NOTION_DATABASE_ID: ${{ secrets.BLOG_NOTION_DATABASE_ID }}

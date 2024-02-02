@@ -117,7 +117,6 @@ export function parameterizedTests(config: BlogOptions) {
         doc.querySelectorAll('#allTags a[id^="tag-link-"]'),
       );
       const tags = tagLinks.map((link) => link.textContent);
-      console.log(tags);
       const sortedTags = [...tags].sort();
       assertEquals(tags, sortedTags);
     });

@@ -6,7 +6,7 @@ import manifest from "./fixture/fresh.gen.ts";
 import { blogPlugin } from "../src/plugin/blog.ts";
 import { Context } from "../src/routes/_middleware.ts";
 
-import "https://deno.land/std@0.195.0/dotenv/load.ts";
+import "https://deno.land/std@0.214.0/dotenv/load.ts";
 
 parameterizedTests(notionConfig);
 
