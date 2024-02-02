@@ -42,7 +42,7 @@ export function createArchivePage(
               <a
                 id={`tag-link-${tag}`}
                 href={`archive/${tag}`}
-                class="border border-gray-300 text-gray-500 py-1 px-2 rounded inline-block hover:bg-gray-300"
+                class="border border-gray-300 text-mutedForeground py-1 px-2 rounded inline-block hover:bg-gray-300"
               >
                 {tag}
               </a>

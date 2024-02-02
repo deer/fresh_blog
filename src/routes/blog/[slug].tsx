@@ -69,7 +69,7 @@ export function createPostPage(
         <br />
         <br />
         <h2 class="text-3xl font-bold">{post.title}</h2>
-        <time class="text-gray-500">
+        <time class="text-mutedForeground">
           {new Date(post.date).toLocaleDateString("en-us", {
             year: "numeric",
             month: "long",
@@ -78,6 +78,9 @@ export function createPostPage(
         </time>
         <div
           class="mt-8 markdown-body"
+          data-color-mode="auto"
+          data-light-theme="light"
+          data-dark-theme="dark"
           dangerouslySetInnerHTML={{ __html: html }}
         />
         {comments && comments.source === "disqus" && (

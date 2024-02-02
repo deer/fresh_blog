@@ -6,8 +6,13 @@ export default function Header(
 ) {
   const isHome = props.active == "/";
   return (
-    <div class="pb-16">
+    <header class="flex align-center justify-between pt-10">
+      <h1>
+        <a href="/" class="text-5xl font-bold">
+          {props.options.title}
+        </a>
+      </h1>
       <NavigationBar active={props.active} options={props.options} />
-    </div>
+    </header>
   );
 }

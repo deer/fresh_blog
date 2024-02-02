@@ -8,20 +8,20 @@ export default function PostSummary(
   return (
     <div class="py-4 border-t border-gray-200" id={`post:${post.slug}`}>
       <a class="sm:col-span-2" href={`/blog/${post.slug}`}>
-        <h3 class="text-3xl text-gray-900 font-bold">
+        <h3 class="text-3xl font-bold">
           {post.title}
         </h3>
       </a>
       <div>
         {hasNonNullContent(post.author) && (
           <>
-            <span class="text-gray-500 mr-1">
+            <span class="text-light-mutedForeground mr-1">
               {props.localization.attribution}
             </span>
             {reduceAuthors(post.author)}
           </>
         )}
-        <time class="ml-1 text-gray-500">
+        <time class="ml-1 text-light-mutedForeground">
           {new Date(post.date).toLocaleDateString("en-us", {
             year: "numeric",
             month: "long",
@@ -70,7 +70,7 @@ function tags(tags: string[]) {
     return (
       <a
         href={url}
-        class="border border-gray-300 text-gray-500 py-1 px-2 rounded inline-block hover:bg-gray-300"
+        class="border border-light-muted text-light-mutedForeground ml-2 py-1 px-2 rounded-lg inline-block hover:bg-light-muted"
       >
         {tag}
       </a>
