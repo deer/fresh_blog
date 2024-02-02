@@ -1,4 +1,4 @@
-import { useSignal, useSignalEffect } from "@preact/signals";
+import { useSignal } from "@preact/signals";
 
 const sun = (
   <svg
@@ -34,20 +34,23 @@ const moon = (
 
 export default function ThemeToggle() {
   const currentTheme = localStorage.getItem("theme") ?? "light";
-  console.log({ currentTheme });
-
   const isDarkMode = useSignal(currentTheme === "dark");
-  console.log({ signalValue: isDarkMode.value });
-  useSignalEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode.value);
-  });
 
   const toggleTheme = () => {
     isDarkMode.value = !isDarkMode.value;
+    const theme = isDarkMode.value ? "dark" : "light";
+
     document.documentElement.classList.toggle("dark", isDarkMode.value);
-    localStorage.setItem("theme", isDarkMode.value ? "dark" : "light");
-    console.log("setting");
-    console.log({ current: localStorage.getItem("theme") });
+    const markdownBody = document.getElementById("markdown-body");
+    if (markdownBody) {
+      markdownBody.setAttribute(
+        "data-color-mode",
+        isDarkMode.value ? "dark" : "light",
+      );
+    }
+
+    document.cookie = `theme=${theme};path=/;max-age=31536000;SameSite=Lax`;
+    localStorage.setItem("theme", theme);
   };
 
   return (

@@ -1,5 +1,6 @@
 export * as preact from "https://esm.sh/preact@10.19.2";
 export type {
+  FreshContext,
   Handlers,
   MiddlewareHandlerContext,
   PageProps,

@@ -6,7 +6,7 @@ export default function Header(
 ) {
   const isHome = props.active == "/";
   return (
-    <header class="flex align-center justify-between pt-10">
+    <header class="flex align-center justify-between pt-10 border-b mb-4">
       <h1>
         <a href="/" class="text-5xl font-bold">
           {props.options.title}

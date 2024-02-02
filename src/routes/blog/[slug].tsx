@@ -12,8 +12,16 @@ import { Post } from "../../utils/posts.ts";
 import { BlogState } from "../_middleware.ts";
 import Disqus from "../../islands/Disqus.tsx";
 
-export const handler: Handlers<Post, BlogState> = {
-  async GET(_req, ctx) {
+export const handler: Handlers<{ theme: string; post: Post }, BlogState> = {
+  async GET(req, ctx) {
+    const getThemeFromCookie = (cookieHeader: string | null): string => {
+      const themeMatch = cookieHeader?.match(/theme=(dark|light)/);
+      return themeMatch ? themeMatch[1] : "auto";
+    };
+
+    const cookieHeader = req.headers.get("cookie");
+    const theme = getThemeFromCookie(cookieHeader);
+
     const posts = ctx.state.context.posts;
     const post = posts.find((x) => x.slug === ctx.params.slug);
     if (!post) {
@@ -34,7 +42,7 @@ export const handler: Handlers<Post, BlogState> = {
         .map((block) => block.code.rich_text[0].plain_text);
       post.content = codeContent[0];
     }
-    return ctx.render(post!);
+    return ctx.render({ theme, post: post! });
   },
 };
 
@@ -44,8 +52,8 @@ export function createPostPage(
   comments?: DisqusOptions,
   options?: PageOptions,
 ) {
-  return function PostPage(props: PageProps<Post>) {
-    const post = props.data;
+  return function PostPage(props: PageProps<{ theme: string; post: Post }>) {
+    const post = props.data.post;
     class CustomRenderer extends Renderer {
       list(body: string, ordered: boolean): string {
         const type = ordered ? "list-decimal" : "list-disc";
@@ -78,10 +86,11 @@ export function createPostPage(
         </time>
         <div
           class="mt-8 markdown-body"
-          data-color-mode="auto"
+          data-color-mode={props.data.theme}
           data-light-theme="light"
           data-dark-theme="dark"
           dangerouslySetInnerHTML={{ __html: html }}
+          id="markdown-body"
         />
         {comments && comments.source === "disqus" && (
           <Disqus
