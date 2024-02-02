@@ -6,7 +6,7 @@ export default function PostList(
   props: { posts: Post[]; showExcerpt: boolean; localization: Localization },
 ) {
   return (
-    <div class="mt-8">
+    <div class="mt-8 w-full">
       {props.posts.map((post) => (
         <PostSummary
           post={post}

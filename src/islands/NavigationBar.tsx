@@ -37,19 +37,21 @@ export default function NavigationBar(
         >
         </span>
       </label>
+      <h2 id="primary-navigation" class="sr-only">Primary Navigation</h2>
       <nav
+        aria-labelledby="primary-navigation"
         class={`${
           isOpen.value
             ? "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-screen bg-gray-300 -z-10 lg:z-0"
             : "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-0 lg:max-h-full -z-10 lg:z-0"
         }`}
       >
-        <ul class="flex flex-col lg:flex-row justify-center items-center gap-4 mx-0 my-6 flex-wrap">
+        <ul class="flex flex-col lg:flex-row justify-center items-center gap-4 mx-0 flex-wrap">
           {Object.entries(props.options.navbarItems).map(([key, value]) => (
             <li key={key}>
               <a
                 href={value}
-                class="p-2 block hover:underline aria-[current='page']:font-bold"
+                class="p-2 hover:underline aria-[current='page']:font-bold"
               >
                 {key}
               </a>

@@ -1,3 +1,3 @@
 export default function Footer() {
-  return <div class="flex justify-center border-t mt-2">Copyright 2024</div>;
+  return <footer class="flex justify-center pb-10 border-t mt-4 pt-4">Copyright 2024</footer>;
 }

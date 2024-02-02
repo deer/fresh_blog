@@ -57,7 +57,7 @@ export function createBlogIndexPage(
         <Head>
           <title>{options?.titleOverride || title}</title>
         </Head>
-        <div>
+        <div class="w-full">
           <PostList
             posts={posts}
             showExcerpt={true}

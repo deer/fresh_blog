@@ -11,6 +11,7 @@ import { DisqusOptions, Localization, PageOptions } from "../../plugin/blog.ts";
 import { Post } from "../../utils/posts.ts";
 import { BlogState } from "../_middleware.ts";
 import Disqus from "../../islands/Disqus.tsx";
+import PostSummary from "../../components/PostSummary.tsx";
 
 export const handler: Handlers<{ theme: string; post: Post }, BlogState> = {
   async GET(req, ctx) {
@@ -69,37 +70,45 @@ export function createPostPage(
       },
     });
     return (
-      <>
+      <div class="flex flex-col flex-grow">
         <Head>
           <title>{options?.titleOverride || title} — {post.title}</title>
           <style dangerouslySetInnerHTML={{ __html: CSS }} />
         </Head>
-        <br />
-        <br />
-        <h2 class="text-3xl font-bold">{post.title}</h2>
-        <time class="text-mutedForeground">
-          {new Date(post.date).toLocaleDateString("en-us", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </time>
-        <div
-          class="mt-8 markdown-body"
-          data-color-mode={props.data.theme}
-          data-light-theme="light"
-          data-dark-theme="dark"
-          dangerouslySetInnerHTML={{ __html: html }}
-          id="markdown-body"
-        />
-        {comments && comments.source === "disqus" && (
-          <Disqus
-            title={post.title}
-            identifier={post.slug}
-            shortname={(comments as DisqusOptions).shortname}
+        <div class="flex flex-col flex-grow">
+          <div class="flex justify-center">
+            <PostSummary
+              post={post}
+              showExcerpt={false}
+              localization={localization}
+            />
+          </div>
+          <div
+            class="mt-8 markdown-body"
+            data-color-mode={props.data.theme}
+            data-light-theme="light"
+            data-dark-theme="dark"
+            dangerouslySetInnerHTML={{ __html: html }}
+            id="markdown-body"
           />
-        )}
-        <nav class="flex mt-8">
+          {comments && comments.source === "disqus" && (
+            <Disqus
+              title={post.title}
+              identifier={post.slug}
+              shortname={(comments as DisqusOptions).shortname}
+            />
+          )}
+        </div>
+        <h2
+          id="next-post-previous-post-navigation"
+          class="sr-only"
+        >
+          Next Post Previous Post Navigation
+        </h2>
+        <nav
+          aria-labelledby="next-post-previous-post-navigation"
+          class="flex"
+        >
           {post.prev
             ? <a href={`/blog/${post.prev}`}>{localization.previousPost}</a>
             : <div class="flex-grow"></div>}
@@ -111,7 +120,7 @@ export function createPostPage(
             )
             : <div></div>}
         </nav>
-      </>
+      </div>
     );
   };
 }

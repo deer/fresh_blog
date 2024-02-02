@@ -36,7 +36,7 @@ export function createArchivePage(
         <Head>
           <title>{finalTitle}</title>
         </Head>
-        <div>
+        <div class="w-full">
           <div class="flex space-x-2 mb-4">
             {allTags.some((x) => x != null) && allTags.map((tag, index) => (
               <a
