@@ -71,7 +71,3 @@ function authorElement(author: string) {
   const authorUrl = `/author/${author.toLowerCase().replace(/\s+/g, "-")}`;
   return <a href={authorUrl}>{author}</a>;
 }
-
-function tags(tags: string[]) {
-  return tags.map((tag) => <TagLink tag={tag} />);
-}

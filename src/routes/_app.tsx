@@ -1,18 +1,12 @@
 import { FreshContext } from "../../deps.ts";
-import Footer from "../components/Footer.tsx";
 import Header from "../components/Header.tsx";
 import { BlogOptions } from "../plugin/blog.ts";
+import { themeFromRequest } from "../utils/theme.ts";
 
 export function AppBuilder(options: BlogOptions) {
   // deno-lint-ignore require-await
   return async (req: Request, ctx: FreshContext) => {
-    const getThemeFromCookie = (cookieHeader: string | null): string => {
-      const themeMatch = cookieHeader?.match(/theme=(dark|light)/);
-      return themeMatch ? themeMatch[1] : "auto";
-    };
-
-    const cookieHeader = req.headers.get("cookie");
-    const themeClass = getThemeFromCookie(cookieHeader);
+    const themeClass = themeFromRequest(req);
 
     const { Component } = ctx;
     return (
@@ -26,7 +20,6 @@ export function AppBuilder(options: BlogOptions) {
           <main class="flex flex-grow min-h-full">
             <Component />
           </main>
-          <Footer />
         </body>
       </html>
     );

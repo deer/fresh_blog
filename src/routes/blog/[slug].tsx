@@ -12,16 +12,11 @@ import { Post } from "../../utils/posts.ts";
 import { BlogState } from "../_middleware.ts";
 import Disqus from "../../islands/Disqus.tsx";
 import PostSummary from "../../components/PostSummary.tsx";
+import { themeFromRequest } from "../../utils/theme.ts";
 
 export const handler: Handlers<{ theme: string; post: Post }, BlogState> = {
   async GET(req, ctx) {
-    const getThemeFromCookie = (cookieHeader: string | null): string => {
-      const themeMatch = cookieHeader?.match(/theme=(dark|light)/);
-      return themeMatch ? themeMatch[1] : "auto";
-    };
-
-    const cookieHeader = req.headers.get("cookie");
-    const theme = getThemeFromCookie(cookieHeader);
+    const theme = themeFromRequest(req);
 
     const posts = ctx.state.context.posts;
     const post = posts.find((x) => x.slug === ctx.params.slug);
