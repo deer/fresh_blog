@@ -2,7 +2,7 @@ import { BlogOptions } from "../plugin/blog.ts";
 import NavigationBar from "../islands/NavigationBar.tsx";
 
 export default function Header(
-  props: { options: BlogOptions },
+  props: { options: BlogOptions; theme: string },
 ) {
   return (
     <header class="flex items-center justify-between pt-10 border-b mb-4 pb-4">
@@ -11,7 +11,7 @@ export default function Header(
           {props.options.title}
         </a>
       </h1>
-      <NavigationBar options={props.options} />
+      <NavigationBar options={props.options} theme={props.theme} />
     </header>
   );
 }

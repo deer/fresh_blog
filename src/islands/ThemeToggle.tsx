@@ -32,9 +32,8 @@ const moon = (
   </svg>
 );
 
-export default function ThemeToggle() {
-  const currentTheme = localStorage.getItem("theme") ?? "light";
-  const isDarkMode = useSignal(currentTheme === "dark");
+export default function ThemeToggle(props: { theme: string }) {
+  const isDarkMode = useSignal(props.theme === "dark");
 
   const toggleTheme = () => {
     isDarkMode.value = !isDarkMode.value;
@@ -50,7 +49,6 @@ export default function ThemeToggle() {
     }
 
     document.cookie = `theme=${theme};path=/;max-age=31536000;SameSite=Lax`;
-    localStorage.setItem("theme", theme);
   };
 
   return (

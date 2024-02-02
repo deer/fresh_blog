@@ -3,7 +3,7 @@ import { useSignal } from "@preact/signals";
 import ThemeToggle from "./ThemeToggle.tsx";
 
 export default function NavigationBar(
-  props: { class?: string; options: BlogOptions },
+  props: { class?: string; options: BlogOptions; theme: string },
 ) {
   const isOpen = useSignal(false);
   return (
@@ -58,7 +58,7 @@ export default function NavigationBar(
             </li>
           ))}
           <li>
-            <ThemeToggle />
+            <ThemeToggle theme={props.theme} />
           </li>
         </ul>
       </nav>

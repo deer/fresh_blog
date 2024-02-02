@@ -16,7 +16,7 @@ export function AppBuilder(options: BlogOptions) {
           <link rel="stylesheet" href="/styles.css" />
         </head>
         <body class="max-w-screen-lg mx-auto px-4 bg-light-background dark:bg-dark-background text-light-foreground  dark:text-dark-foreground min-h-screen flex flex-col">
-          <Header options={options} />
+          <Header options={options} theme={themeClass} />
           <main class="flex flex-grow min-h-full">
             <Component />
           </main>
