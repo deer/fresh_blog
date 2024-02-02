@@ -15,24 +15,24 @@ export default function NavigationBar(
         <span
           class={`${
             isOpen.value
-              ? "block h-1 w-6 bg-black transform rotate-45"
-              : "block h-1 w-6 bg-black"
+              ? "block h-1 w-6 bg-light-foreground dark:bg-dark-foreground transform rotate-45"
+              : "block h-1 w-6 bg-light-foreground dark:bg-dark-foreground"
           }`}
         >
         </span>
         <span
           class={`${
             isOpen.value
-              ? "block h-1 w-6 bg-black my-1 opacity-0"
-              : "block h-1 w-6 bg-black my-1"
+              ? "block h-1 w-6 bg-light-foreground dark:bg-dark-foreground my-1 opacity-0"
+              : "block h-1 w-6 bg-light-foreground dark:bg-dark-foreground my-1"
           }`}
         >
         </span>
         <span
           class={`${
             isOpen.value
-              ? "block h-1 w-6 bg-black transform -rotate-45"
-              : "block h-1 w-6 bg-black"
+              ? "block h-1 w-6 bg-light-foreground dark:bg-dark-foreground transform -rotate-45"
+              : "block h-1 w-6 bg-light-foreground dark:bg-dark-foreground"
           }`}
         >
         </span>
@@ -42,7 +42,7 @@ export default function NavigationBar(
         aria-labelledby="primary-navigation"
         class={`${
           isOpen.value
-            ? "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-screen bg-gray-300"
+            ? "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-screen bg-light-mutedBackground dark:bg-dark-mutedBackground"
             : "w-full fixed top-0 left-0 overflow-hidden transition-max-height duration-500 lg:relative max-h-0 lg:max-h-full"
         }`}
       >

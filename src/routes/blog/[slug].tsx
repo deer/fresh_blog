@@ -107,7 +107,7 @@ export function createPostPage(
         </h2>
         <nav
           aria-labelledby="next-post-previous-post-navigation"
-          class="flex"
+          class="flex mt-2"
         >
           {post.prev
             ? <a href={`/blog/${post.prev}`}>{localization.previousPost}</a>

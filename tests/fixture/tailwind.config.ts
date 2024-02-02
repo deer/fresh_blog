@@ -13,7 +13,7 @@ export default {
         light: {
           background: colors.white,
           foreground: colors.black,
-          muted: colors.gray[200],
+          mutedBackground: colors.gray[200],
           mutedForeground: colors.gray[700],
           // card: colors.white,
           // cardForeground: colors.gray[800],
@@ -33,8 +33,8 @@ export default {
         dark: {
           background: colors.black,
           foreground: colors.white,
-          muted: colors.gray[700],
-          mutedForeground: colors.gray[200],
+          mutedBackground: colors.pink[700],
+          mutedForeground: colors.gray[400],
           // card: colors.white,
           // cardForeground: colors.gray[800],
           // popover: colors.white,

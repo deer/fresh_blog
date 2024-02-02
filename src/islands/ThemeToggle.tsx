@@ -2,7 +2,7 @@ import { useSignal } from "@preact/signals";
 
 const sun = (
   <svg
-    class="w-6 h-6 text-gray-800 dark:text-white"
+    class="w-6 h-6"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
@@ -18,7 +18,7 @@ const sun = (
 
 const moon = (
   <svg
-    class="w-6 h-6 text-gray-800 dark:text-white"
+    class="w-6 h-6"
     aria-hidden="true"
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
