@@ -3,9 +3,8 @@ import { useSignal } from "https://esm.sh/*@preact/signals@1.2.2";
 import ThemeToggle from "./ThemeToggle.tsx";
 
 export default function NavigationBar(
-  props: { active: string; class?: string; options: BlogOptions },
+  props: { class?: string; options: BlogOptions },
 ) {
-  const isHome = props.active == "/";
   const isOpen = useSignal(false);
   return (
     <div>
@@ -50,15 +49,7 @@ export default function NavigationBar(
             <li key={key}>
               <a
                 href={value}
-                class={`p-2 block hover:underline ${
-                  isHome
-                    ? props.active == value
-                      ? "text-black-900 font-bold"
-                      : "text-black-900"
-                    : props.active == value
-                    ? "text-black-600 font-bold"
-                    : "text-black-600"
-                }`}
+                class="p-2 block hover:underline aria-[current='page']:font-bold"
               >
                 {key}
               </a>

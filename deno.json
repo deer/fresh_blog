@@ -11,12 +11,5 @@
     "ok": "deno fmt --check && deno lint && deno task check:types && deno task test",
     "test": "deno test -A --parallel"
   },
-  "imports": {
-    "$fresh/": "https://raw.githubusercontent.com/denoland/fresh/844370cadd1ed28fd76f796c2afc1e2411bfc425/",
-    "tailwindcss": "npm:tailwindcss@3.3.5",
-    "preact": "https://esm.sh/preact@10.19.2",
-    "preact/": "https://esm.sh/preact@10.19.2/",
-    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.0",
-    "$std/": "https://deno.land/std@0.208.0/"
-  }
+  "importMap": "./.vscode/import_map.json"
 }

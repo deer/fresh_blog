@@ -4,6 +4,7 @@ import Header from "../components/Header.tsx";
 import { BlogOptions } from "../plugin/blog.ts";
 
 export function AppBuilder(options: BlogOptions) {
+  // deno-lint-ignore require-await
   return async (req: Request, ctx: FreshContext) => {
     const getThemeFromCookie = (cookieHeader: string | null): string => {
       const themeMatch = cookieHeader?.match(/theme=(dark|light)/);
@@ -13,7 +14,7 @@ export function AppBuilder(options: BlogOptions) {
     const cookieHeader = req.headers.get("cookie");
     const themeClass = getThemeFromCookie(cookieHeader);
 
-    const { Component, route } = ctx;
+    const { Component } = ctx;
     return (
       <html class={themeClass === "dark" ? "dark" : ""}>
         <head>
@@ -21,10 +22,7 @@ export function AppBuilder(options: BlogOptions) {
           <link rel="stylesheet" href="/styles.css" />
         </head>
         <body class="max-w-screen-lg mx-auto px-4 bg-light-background text-light-foreground dark:bg-dark-background dark:text-dark-foreground">
-          <Header
-            options={options}
-            active={route}
-          />
+          <Header options={options} />
           <main class="">
             <Component />
           </main>

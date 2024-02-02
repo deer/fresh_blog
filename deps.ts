@@ -1,4 +1,4 @@
-export * as preact from "https://esm.sh/preact@10.19.2";
+export * as preact from "https://esm.sh/preact@10.19.3";
 export type {
   FreshContext,
   Handlers,
