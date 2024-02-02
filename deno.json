@@ -9,7 +9,7 @@
     "coverage": "rm -rf coverage && deno test -A --parallel --coverage && deno coverage --html",
     "fixture": "deno run -A --watch=static/,routes/ tests/fixture/dev.ts",
     "ok": "deno fmt --check && deno lint && deno task check:types && deno task test",
-    "test": "deno test -A --parallel"
+    "test": "deno test -A --no-check --parallel"
   },
   "importMap": "./.vscode/import_map.json"
 }

@@ -39,7 +39,7 @@ export function createArchivePage(
           <title>{finalTitle}</title>
         </Head>
         <div class="w-full">
-          <Tags tags={allTags} />
+          <Tags tags={allTags} id="allTags" />
           <PostList
             posts={props.data}
             showExcerpt={false}

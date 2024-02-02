@@ -38,7 +38,10 @@ export default function PostSummary(
       {showExcerpt && (post.excerpt != "") && (
         <div>
           <div>{post.excerpt}</div>
-          <a class="sm:col-span-2 text-light-mutedForeground dark:text-dark-mutedForeground" href={`/blog/${post.slug}`}>
+          <a
+            class="sm:col-span-2 text-light-mutedForeground dark:text-dark-mutedForeground"
+            href={`/blog/${post.slug}`}
+          >
             {props.localization.continueReading}
           </a>
         </div>
