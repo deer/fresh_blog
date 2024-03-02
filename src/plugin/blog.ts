@@ -1,4 +1,11 @@
-import { dirname, existsSync, fromFileUrl, join, Plugin } from "../../deps.ts";
+import {
+  dirname,
+  existsSync,
+  fromFileUrl,
+  join,
+  Plugin,
+  upNlevels,
+} from "../../deps.ts";
 import { handler as blogSlugHandler } from "../routes/blog/[slug].tsx";
 import { createPostPage } from "../routes/blog/[slug].tsx";
 import { AppBuilder } from "../routes/_app.tsx";
@@ -71,7 +78,7 @@ export function blogPlugin(
   return {
     name: "blog_plugin",
     location: import.meta.url,
-    projectLocation: new URL("../../", import.meta.url).href,
+    projectLocation: upNlevels(import.meta.url, 2),
     middlewares: [{
       middleware: {
         handler: contextMiddleware(

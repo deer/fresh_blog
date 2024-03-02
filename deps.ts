@@ -1,4 +1,4 @@
-export * as preact from "https://esm.sh/preact@10.19.3";
+export * as preact from "https://esm.sh/preact@10.19.6";
 export type {
   FreshContext,
   Handlers,
@@ -13,16 +13,17 @@ export {
   extname,
   fromFileUrl,
   join,
-} from "https://deno.land/std@0.214.0/path/mod.ts";
-export * as JSONC from "https://deno.land/std@0.214.0/jsonc/mod.ts";
-export { extract } from "https://deno.land/std@0.214.0/front_matter/yaml.ts";
+} from "https://deno.land/std@0.218.2/path/mod.ts";
+export * as JSONC from "https://deno.land/std@0.218.2/jsonc/mod.ts";
+export { extract } from "https://deno.land/std@0.218.2/front_matter/yaml.ts";
 export { CSS, render, Renderer } from "https://deno.land/x/gfm@0.6.0/mod.ts";
-export { load } from "https://deno.land/std@0.214.0/dotenv/mod.ts";
-export { existsSync } from "https://deno.land/std@0.214.0/fs/mod.ts";
+export { load } from "https://deno.land/std@0.218.2/dotenv/mod.ts";
+export { existsSync } from "https://deno.land/std@0.218.2/fs/mod.ts";
 export { Client } from "https://deno.land/x/notion_sdk@v2.2.3/src/mod.ts";
 export type {
   CodeBlockObjectResponse,
   PageObjectResponse,
   RichTextItemResponse,
 } from "https://deno.land/x/notion_sdk@v2.2.3/src/api-endpoints.ts";
-export { $ } from "https://deno.land/x/dax@0.38.0/mod.ts";
+export { $ } from "jsr:@david/dax@0.39.2";
+export { upNlevels } from "jsr:@deer/upnlevels@0.0.1";

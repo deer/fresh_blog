@@ -8,7 +8,7 @@ export {
   assertEquals,
   assertNotEquals,
   assertStringIncludes,
-} from "https://deno.land/std@0.214.0/assert/mod.ts";
+} from "https://deno.land/std@0.218.2/assert/mod.ts";
 export {
   default as puppeteer,
   Page,
@@ -16,9 +16,9 @@ export {
 export type {
   ChromeArgOptions,
 } from "https://deno.land/x/puppeteer@16.2.0/src/deno/LaunchOptions.ts";
-export { delay } from "https://deno.land/std@0.214.0/async/delay.ts";
+export { delay } from "https://deno.land/std@0.218.2/async/delay.ts";
 export {
   TextLineStream,
-} from "https://deno.land/std@0.214.0/streams/text_line_stream.ts";
-export { $ } from "https://deno.land/x/dax@0.38.0/mod.ts";
-export { STATUS_CODE } from "https://deno.land/std@0.214.0/http/status.ts";
+} from "https://deno.land/std@0.218.2/streams/text_line_stream.ts";
+export { $ } from "jsr:@david/dax@0.39.2";
+export { STATUS_CODE } from "https://deno.land/std@0.218.2/http/status.ts";
