@@ -7,15 +7,15 @@
     "preview": "deno run -A main.ts"
   },
   "imports": {
-    "$fresh/": "https://raw.githubusercontent.com/denoland/fresh/844370cadd1ed28fd76f796c2afc1e2411bfc425/",
-    "preact": "https://esm.sh/preact@10.19.6",
-    "preact/": "https://esm.sh/preact@10.19.6/",
-    "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
-    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
-    "tailwindcss": "npm:tailwindcss@3.4.1",
-    "tailwindcss/": "npm:/tailwindcss@3.4.1/",
-    "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
-    "$std/": "https://deno.land/std@0.218.2/"
+    "$fresh/": "https://raw.githubusercontent.com/denoland/fresh/60220dd33b5b0f6b5c72927c933dbc32a3c4734e/",
+    "preact": "https://esm.sh/preact@10.20.1",
+    "preact/": "https://esm.sh/preact@10.20.1/",
+    "@preact/signals": "https://esm.sh/*@preact/signals@1.2.3",
+    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.6.0",
+    "tailwindcss": "npm:tailwindcss@3.4.3",
+    "tailwindcss/": "npm:/tailwindcss@3.4.3/",
+    "tailwindcss/plugin": "npm:/tailwindcss@3.4.3/plugin.js",
+    "$std/": "https://deno.land/std@0.221.0/"
   },
   "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "lint": { "rules": { "tags": ["fresh", "recommended"] } },
