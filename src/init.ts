@@ -90,7 +90,7 @@ async function modifyDenoJson() {
   }
 
   denoJson.imports["$fresh/"] =
-    "https://raw.githubusercontent.com/denoland/fresh/844370cadd1ed28fd76f796c2afc1e2411bfc425/";
+    "https://raw.githubusercontent.com/denoland/fresh/60220dd33b5b0f6b5c72927c933dbc32a3c4734e/";
 
   const denoJsonContent = JSON.stringify(denoJson, null, 2) + "\n";
   await Deno.writeTextFile(DENO_JSON_PATH, denoJsonContent);
